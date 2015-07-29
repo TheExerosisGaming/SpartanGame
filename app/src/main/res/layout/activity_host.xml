@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".menu.HostActivity"
+    android:id="@+id/layout_host">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/online_players_label"
+        android:textStyle="bold"
+        android:id="@+id/text_host_online_label"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/online_players_default"
+        android:id="@+id/text_host_online"
+        android:layout_below="@+id/text_host_online_label"
+        android:layout_alignEnd="@+id/text_host_online_label" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/server_name_label"
+        android:textStyle="bold"
+        android:id="@+id/text_host_server_name_label"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/button_host_save"
+        android:onClick="onClickSaveButton"
+        android:layout_marginTop="51dp"
+        android:layout_below="@+id/field_server_name"
+        android:layout_alignEnd="@+id/field_server_name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/field_server_name"
+        android:layout_below="@+id/text_host_server_name_label"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/text_host_server_name_label"
+        android:hint="@string/player_name_default" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:id="@+id/button_host_cancel"
+        android:onClick="onClickCancelButton"
+        android:layout_alignTop="@+id/button_host_save"
+        android:layout_alignStart="@+id/text_host_online_label" />
+
+
+</RelativeLayout>

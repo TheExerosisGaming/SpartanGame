@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Undecided</string>
+    <string name="game_title">Undecided</string>
+
+
+    <string name="join_game">Join Game</string>
+    <string name="host_game">Host Game</string>
+    <string name="exit">Exit Game</string>
+    <string name="settings">Settings</string>
+
+
+    <string name="player_name_label">PlayerName:</string>
+    <string name="player_name_default">AndroidPlayer</string>
+
+    <string name="server_ip_label">Server IP:</string>
+    <string name="server_ip_default">96.248.68.194:6379</string>
+
+    <string name="connection_label">Connection:</string>
+    <string name="connection_default">Offline</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="test_connection">Test Connection</string>
+    <string name="title_activity_host">Waiting for Players...</string>
+
+
+    <string name="online_players_label">OnlinePlayers:</string>
+    <string name="online_players_default">1</string>
+
+    <string name="server_name_label">ServerName:</string>
+    <string name="server_name_default">Error</string>
+    <string name="title_activity_join">JoinActivity</string>
+
+    <string name="server_list_label">Servers:</string>
+</resources>

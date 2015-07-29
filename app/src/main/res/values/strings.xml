@@ -13,7 +13,7 @@
     <string name="player_name_default">AndroidPlayer</string>
 
     <string name="server_ip_label">Server IP:</string>
-    <string name="server_ip_default">96.248.68.194:6379</string>
+    <string name="server_ip_default">96.248.68.194</string>
 
     <string name="connection_label">Connection:</string>
     <string name="connection_default">Offline</string>

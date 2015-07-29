@@ -74,9 +74,8 @@ public class MainActivity extends ExActivity {
                             if (!connectionView.getText().toString().equals(text))
                                 connectionView.setText(text);
 
-                            String ip = settings.getString(SettingsActivity.ARGS_HOST) + ":" + settings.getInt(SettingsActivity.ARGS_PORT);
-                            if (!ipView.getText().toString().equals(ip))
-                                ipView.setText(ip);
+                            if (!ipView.getText().toString().equals(settings.getString(SettingsActivity.ARGS_HOST)))
+                                ipView.setText(settings.getString(SettingsActivity.ARGS_HOST));
 
                             if (!playerNameView.getText().toString().equals(settings.getString(SettingsActivity.ARGS_PLAYER_NAME)))
                                 playerNameView.setText(settings.getString(SettingsActivity.ARGS_PLAYER_NAME));

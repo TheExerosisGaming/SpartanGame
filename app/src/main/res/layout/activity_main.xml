@@ -47,7 +47,7 @@
         android:id="@+id/text_main_ip_label"
         android:onClick="onClickSettingsButton"
         android:layout_below="@+id/button_main_join"
-        android:layout_toStartOf="@+id/text_main_player_default" />
+        android:layout_alignStart="@+id/text_main_connection_label" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
         android:id="@+id/text_main_connection_label"
         android:onClick="onClickSettingsButton"
         android:layout_alignTop="@+id/button_main_host"
-        android:layout_alignEnd="@+id/text_main_player_label" />
+        android:layout_toStartOf="@+id/text_main_connection_default" />
 
     <TextView
         android:layout_width="wrap_content"

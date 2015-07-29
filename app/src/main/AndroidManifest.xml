@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="gov.pppl.game" >
+    package="gov.pppl.blah" >
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".menu.MainActivity"
+            android:name="gov.pppl.blah.menu.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,23 +21,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".menu.SettingsActivity"
+            android:name="gov.pppl.blah.menu.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
         </activity>
         <activity
-            android:name=".menu.HostActivity"
-            android:screenOrientation="portrait"
+            android:name="gov.pppl.blah.menu.HostActivity"
+            android:screenOrientation="landscape"
             android:label="@string/title_activity_host" >
         </activity>
         <activity
-            android:name=".GameActivity"
-            android:screenOrientation="portrait"
+            android:name="gov.pppl.blah.GameActivity"
+            android:screenOrientation="landscape"
             android:label="@string/game_title" >
         </activity>
         <activity
-            android:name=".menu.JoinActivity"
-            android:screenOrientation="portrait"
+            android:name="gov.pppl.blah.menu.JoinActivity"
+            android:screenOrientation="landscape"
             android:label="@string/title_activity_join" >
         </activity>
     </application>

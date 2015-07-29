@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+  <component name="Encoding" useUTFGuessing="false" native2AsciiForPropertiesFiles="false" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/androidmessaginglibrary/src/main/java/gov/pppl/androidmessaginglibrary/AndroidMessagingAPI.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/androidmessaginglibrary/src/main/java/gov/pppl/androidmessaginglibrary/bluetooth" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/androidmessaginglibrary/src/main/java/gov/pppl/androidmessaginglibrary/bluetooth/Bluetooth.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/androidmessaginglibrary/src/main/java/gov/pppl/androidmessaginglibrary/event" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/androidmessaginglibrary/src/main/java/gov/pppl/androidmessaginglibrary/redis" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/androidmessaginglibrary/src/main/java/gov/pppl/androidmessaginglibrary/util" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/gov/pppl/game/game/networking/server/BluetoothDevices.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/gov/pppl/game/game/networking/server/SelectDevices.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/gov/pppl/game/util/ExActivity.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/gov/pppl/blah/game/networking/server/BluetoothDevices.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/gov/pppl/blah/game/networking/server/SelectDevices.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/gov/pppl/blah/util/ExActivity.java" charset="windows-1252" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
+

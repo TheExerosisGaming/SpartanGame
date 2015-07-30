@@ -1,4 +1,4 @@
-package gov.pppl.blah.menu;
+package me.exerosis.spartangame.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import android.widget.EditText;
 import gov.pppl.androidmessaginglibrary.AndroidMessagingAPI;
 import gov.pppl.androidmessaginglibrary.redis.listeners.RedisMessageListener;
 import gov.pppl.blah.R;
-import gov.pppl.blah.util.ExActivity;
-import gov.pppl.blah.util.Redis;
+import me.exerosis.spartangame.util.ExActivity;
+import me.exerosis.spartangame.util.Redis;
 import redis.clients.jedis.Jedis;
 
 public class HostActivity extends ExActivity {

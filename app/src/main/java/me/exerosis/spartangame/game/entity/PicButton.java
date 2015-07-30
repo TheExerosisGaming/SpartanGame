@@ -1,4 +1,4 @@
-package gov.pppl.blah.GUI;
+package me.exerosis.spartangame.game.entity;
 
 /**
  * Created by student on 7/28/2015.

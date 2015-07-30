@@ -1,4 +1,4 @@
-package gov.pppl.blah.menu;
+package me.exerosis.spartangame.menu;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import gov.pppl.blah.GameActivity;
+import me.exerosis.spartangame.game.GameActivity;
 import gov.pppl.blah.R;
-import gov.pppl.blah.util.ExActivity;
-import gov.pppl.blah.util.Redis;
+import me.exerosis.spartangame.util.ExActivity;
+import me.exerosis.spartangame.util.Redis;
 import redis.clients.jedis.Jedis;
 
 public class MainActivity extends ExActivity {

@@ -1,4 +1,4 @@
-package gov.pppl.blah;
+package me.exerosis.spartangame.game;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -15,13 +15,13 @@ import android.view.WindowManager;
 
 import gov.pppl.androidmessaginglibrary.event.CustomEventManager;
 import gov.pppl.androidmessaginglibrary.event.MessageReceivedEvent;
-import gov.pppl.blah.GUI.Dagger;
-import gov.pppl.blah.GUI.Entity;
-import gov.pppl.blah.GUI.PicButton;
-import gov.pppl.blah.GUI.Player;
-import gov.pppl.blah.GUI.RemotePlayer;
-import gov.pppl.blah.menu.HostActivity;
-import gov.pppl.blah.menu.SettingsActivity;
+import gov.pppl.blah.R;
+import me.exerosis.spartangame.game.entity.Dagger;
+import me.exerosis.spartangame.game.entity.Entity;
+import me.exerosis.spartangame.game.entity.PicButton;
+import me.exerosis.spartangame.game.player.Player;
+import me.exerosis.spartangame.game.player.RemotePlayer;
+import me.exerosis.spartangame.menu.SettingsActivity;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -40,8 +40,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private static int screenWidth; // Screen dimensions
     private static int screenHeight;
 
+    private Bundle settings = new Bundle();
     public GameView(Context context, Bundle bundle) {
         super(context);
+
+        settings.putAll(bundle);
 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();

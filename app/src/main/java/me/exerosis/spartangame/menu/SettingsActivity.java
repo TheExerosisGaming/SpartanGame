@@ -1,4 +1,4 @@
-package gov.pppl.blah.menu;
+package me.exerosis.spartangame.menu;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,8 +8,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import gov.pppl.blah.R;
-import gov.pppl.blah.util.ExActivity;
-import gov.pppl.blah.util.Redis;
+import me.exerosis.spartangame.util.ExActivity;
+import me.exerosis.spartangame.util.Redis;
 import redis.clients.jedis.Jedis;
 
 public class SettingsActivity extends ExActivity {

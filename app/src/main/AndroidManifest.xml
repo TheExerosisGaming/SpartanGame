@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="gov.pppl.blah.menu.MainActivity"
+            android:name="me.exerosis.spartangame.menu.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,23 +21,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="gov.pppl.blah.menu.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:screenOrientation="landscape">
+            android:name="me.exerosis.spartangame.menu.SettingsActivity"
+            android:label="@string/title_activity_settings">
         </activity>
         <activity
-            android:name="gov.pppl.blah.menu.HostActivity"
-            android:screenOrientation="landscape"
+            android:name="me.exerosis.spartangame.menu.HostActivity"
             android:label="@string/title_activity_host" >
         </activity>
         <activity
-            android:name="gov.pppl.blah.GameActivity"
-            android:screenOrientation="landscape"
+            android:name="me.exerosis.spartangame.game.GameActivity"
             android:label="@string/game_title" >
         </activity>
         <activity
-            android:name="gov.pppl.blah.menu.JoinActivity"
-            android:screenOrientation="landscape"
+            android:name="me.exerosis.spartangame.menu.JoinActivity"
             android:label="@string/title_activity_join" >
         </activity>
     </application>

@@ -1,4 +1,4 @@
-package gov.pppl.blah.GUI;
+package me.exerosis.spartangame.game.entity;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -7,7 +7,7 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 import java.util.List;
 
-import gov.pppl.blah.GameView;
+import me.exerosis.spartangame.game.GameView;
 
 /**
  * Created by student on 7/21/2015.

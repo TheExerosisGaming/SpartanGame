@@ -1,11 +1,11 @@
-package gov.pppl.blah;
+package me.exerosis.spartangame.game;
 
 import android.app.Activity;
 import android.os.Bundle;
 
 import gov.pppl.androidmessaginglibrary.redis.RedisMessager;
 import gov.pppl.androidmessaginglibrary.redis.listeners.RedisMessageListener;
-import gov.pppl.blah.menu.SettingsActivity;
+import me.exerosis.spartangame.menu.SettingsActivity;
 
 
 public class GameActivity extends Activity {

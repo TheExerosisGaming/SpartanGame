@@ -1,4 +1,4 @@
-package gov.pppl.blah.menu;
+package me.exerosis.spartangame.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +16,8 @@ import gov.pppl.androidmessaginglibrary.bluetooth.Bluetooth;
 import gov.pppl.androidmessaginglibrary.bluetooth.BluetoothManager;
 import gov.pppl.androidmessaginglibrary.redis.RedisMessager;
 import gov.pppl.blah.R;
-import gov.pppl.blah.util.ExActivity;
-import gov.pppl.blah.util.Redis;
+import me.exerosis.spartangame.util.ExActivity;
+import me.exerosis.spartangame.util.Redis;
 import redis.clients.jedis.Jedis;
 
 public class JoinActivity extends ExActivity implements AbsListView.OnItemClickListener {

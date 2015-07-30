@@ -1,4 +1,4 @@
-package gov.pppl.blah.util;
+package me.exerosis.spartangame.util;
 
 import android.app.Activity;
 import android.app.Notification;

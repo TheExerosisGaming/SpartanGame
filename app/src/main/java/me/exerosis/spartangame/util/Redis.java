@@ -1,8 +1,8 @@
-package gov.pppl.blah.util;
+package me.exerosis.spartangame.util;
 
 import android.os.Bundle;
 
-import gov.pppl.blah.menu.SettingsActivity;
+import me.exerosis.spartangame.menu.SettingsActivity;
 import redis.clients.jedis.Jedis;
 
 /**

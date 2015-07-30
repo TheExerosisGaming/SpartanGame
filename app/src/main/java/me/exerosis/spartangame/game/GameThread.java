@@ -1,4 +1,4 @@
-package gov.pppl.blah;
+package me.exerosis.spartangame.game;
 
 import android.annotation.SuppressLint;
 import android.graphics.Canvas;

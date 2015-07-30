@@ -7,11 +7,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
+
+import java.util.Collections;
 
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.game.entity.Dagger;
@@ -117,6 +120,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
             canvas.drawColor(Color.CYAN);
 
+            Collections.sort(Entity.getInstances());
             for (Entity entity : Entity.getInstances())
                 if (entity != null)
                     entity.draw(canvas);

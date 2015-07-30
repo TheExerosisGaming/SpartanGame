@@ -4,9 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.SortedSet;
-import java.util.TreeSet;
 
 import me.exerosis.spartangame.game.GameView;
 
@@ -14,7 +15,7 @@ import me.exerosis.spartangame.game.GameView;
  * Created by student on 7/21/2015.
  */
 public abstract class Entity implements Comparable<Entity> {
-    private static SortedSet<Entity> instances = Collections.synchronizedSortedSet(new TreeSet<Entity>());
+    private static List<Entity> instances = Collections.synchronizedList(new ArrayList<Entity>());
 
     private static final int JUMP_LIMIT = GameView.getScreenHeight() / 4;
     private static final int TERMINAL_VELOCITY = GameView.getScreenHeight() / 20;
@@ -35,24 +36,26 @@ public abstract class Entity implements Comparable<Entity> {
             @Override
             public void run() {
                 while (true) {
-                    for (Entity entity : instances) {
-                        if (!entity.hasGravity())
-                            continue;
-                        if (jumping) {
-                            if (entity.y > GameView.getScreenHeight() - entity.bitmap.getHeight() - JUMP_LIMIT && entity.yVelocity > -TERMINAL_VELOCITY) {
-                                entity.yVelocity -= JUMP_FORCE;
-                            }
+                    synchronized (instances) {
+                        for (Entity entity : instances) {
+                            if (!entity.hasGravity())
+                                continue;
+                            if (jumping) {
+                                if (entity.y > GameView.getScreenHeight() - entity.bitmap.getHeight() - JUMP_LIMIT && entity.yVelocity > -TERMINAL_VELOCITY) {
+                                    entity.yVelocity -= JUMP_FORCE;
+                                }
 
-                            if (entity.y <= GameView.getScreenHeight() - entity.bitmap.getHeight() - JUMP_LIMIT) {
-                                jumping = false;
-                            }
+                                if (entity.y <= GameView.getScreenHeight() - entity.bitmap.getHeight() - JUMP_LIMIT) {
+                                    jumping = false;
+                                }
 
-                        } else {
-                            if (entity.y < GameView.getScreenHeight() - entity.bitmap.getHeight() && entity.yVelocity < TERMINAL_VELOCITY) {
-                                entity.yVelocity += GRAVITY;
-                            } else if (entity.y > GameView.getScreenHeight() - entity.bitmap.getHeight()) {
-                                entity.y = GameView.getScreenHeight() - entity.bitmap.getHeight();
-                                entity.yVelocity = 0;
+                            } else {
+                                if (entity.y < GameView.getScreenHeight() - entity.bitmap.getHeight() && entity.yVelocity < TERMINAL_VELOCITY) {
+                                    entity.yVelocity += GRAVITY;
+                                } else if (entity.y > GameView.getScreenHeight() - entity.bitmap.getHeight()) {
+                                    entity.y = GameView.getScreenHeight() - entity.bitmap.getHeight();
+                                    entity.yVelocity = 0;
+                                }
                             }
                         }
                     }
@@ -61,7 +64,7 @@ public abstract class Entity implements Comparable<Entity> {
         }.start();
     }
 
-    public static SortedSet<Entity> getInstances() {
+    public static List<Entity> getInstances() {
         return instances;
     }
 

@@ -1,6 +1,7 @@
 package me.exerosis.spartangame.game.entity;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -17,8 +18,9 @@ public class HealthBar {
 
     public HealthBar(int health){
         width = health * 25;
-        bar.set(point.x, point.y, point.x + width, 250); //left, top, right, bottom
-        paint.setColor(0x00FF00);
+        bar.set(point.x, point.y, point.x + width, 100); //left, top, right, bottom
+        paint.setColor(Color.GREEN);
+        paint.setStrokeWidth(10);
     }
 
     public void setSize(int health){

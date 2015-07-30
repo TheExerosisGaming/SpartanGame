@@ -79,8 +79,8 @@ public abstract class Entity implements Comparable<Entity> {
     public Entity(Bitmap bitmap, int x, int y, int layer) {
         this.layer = layer;
         this.bitmap = bitmap;
-        setX(x);
-        setY(y);
+        this.x = x;
+        this.y = y;
 
         setRectangle(x, y, bitmap.getHeight(), bitmap.getWidth());
         instances.add(this);

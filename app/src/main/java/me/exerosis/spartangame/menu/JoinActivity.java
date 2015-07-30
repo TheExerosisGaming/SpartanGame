@@ -90,7 +90,7 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
             manager.connect(Bluetooth.getDeviceNames().get(text));
             return;
         }
-        RedisMessager.sendMessage("game.join", text  + ":" + settings.getString(SettingsActivity.ARGS_SERVER_NAME), settings);
+        RedisMessager.sendMessage("game.join", text, settings);
         intend(RESULT_OK);
     }
 

@@ -119,8 +119,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
             canvas.drawColor(Color.CYAN);
 
-            Collections.sort(Entity.getInstances());
-            for (Entity entity : Entity.getInstances())
+            Collections.sort(Entity.getSyncInstances());
+            for (Entity entity : Entity.getSyncInstances())
                 if (entity != null)
                     entity.draw(canvas);
 

@@ -1,13 +1,12 @@
 package me.exerosis.spartangame.util;
 
-import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.view.View;
 
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.game.GameView;
 import me.exerosis.spartangame.game.entity.PicButton;
-import me.exerosis.spartangame.game.player.Player;
+import me.exerosis.spartangame.game.entity.Player;
 
 /**
  * Created by Exerosis on 7/30/2015.

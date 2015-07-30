@@ -2,8 +2,6 @@ package me.exerosis.spartangame.game.entity;
 
 import android.graphics.Bitmap;
 
-import me.exerosis.spartangame.game.player.Player;
-
 /**
  * Created by student on 7/29/2015.
  */

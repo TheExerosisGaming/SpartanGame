@@ -37,6 +37,7 @@ public abstract class Entity implements Comparable<Entity> {
             @Override
             public void run() {
                 while (true) {
+                    synchronized (gravityInstances) {
                         for (Entity entity : gravityInstances) {
                             if (jumping) {
                                 if (entity.y > GameView.getScreenHeight() - entity.bitmap.getHeight() - JUMP_LIMIT && entity.yVelocity > -TERMINAL_VELOCITY) {
@@ -55,6 +56,7 @@ public abstract class Entity implements Comparable<Entity> {
                                     entity.yVelocity = 0;
                                 }
                             }
+                        }
                     }
                 }
             }
@@ -64,14 +66,15 @@ public abstract class Entity implements Comparable<Entity> {
     public static List<Entity> getInstances() {
         return instances;
     }
+
     public static List<Entity> getSyncInstances() {
         synchronized (instances) {
             return instances;
         }
     }
 
-    public static List<Entity> getSyncInstancesClone() {
-        return Collections.unmodifiableList(instances);
+    public static List<Entity> getGravityInstances() {
+        return gravityInstances;
     }
 
     public Entity(Bitmap bitmap, int x, int y, int layer) {
@@ -137,6 +140,11 @@ public abstract class Entity implements Comparable<Entity> {
     }
 
     public void setGravity(boolean activate) {
+        if (activate)
+            gravityInstances.add(this);
+        else
+            gravityInstances.remove(this);
+
         gravity = activate;
     }
 

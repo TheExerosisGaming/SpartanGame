@@ -1,4 +1,4 @@
-package me.exerosis.spartangame.game.player;
+package me.exerosis.spartangame.game.entity;
 
 import android.graphics.Bitmap;
 import android.graphics.Rect;

@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -21,7 +20,7 @@ import me.exerosis.spartangame.game.entity.Dagger;
 import me.exerosis.spartangame.game.entity.Entity;
 import me.exerosis.spartangame.game.entity.HealthBar;
 import me.exerosis.spartangame.game.entity.PicButton;
-import me.exerosis.spartangame.game.player.Player;
+import me.exerosis.spartangame.game.entity.Player;
 import me.exerosis.spartangame.menu.SettingsActivity;
 import me.exerosis.spartangame.util.EntityStorage;
 

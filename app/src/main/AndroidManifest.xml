@@ -30,7 +30,7 @@
         </activity>
         <activity
             android:name="me.exerosis.spartangame.game.GameActivity"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape"
             >
         </activity>

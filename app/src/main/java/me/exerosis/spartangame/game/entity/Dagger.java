@@ -10,7 +10,7 @@ import me.exerosis.spartangame.game.player.Player;
 public class Dagger extends Entity {
 
     public Dagger(Bitmap texture, int x, int y, Player player) {
-        super(texture, x, y);
+        super(texture, x, y, 4);
         setDirection(player);
     }
 

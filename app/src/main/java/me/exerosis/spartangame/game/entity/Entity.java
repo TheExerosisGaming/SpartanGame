@@ -29,6 +29,11 @@ public abstract class Entity {
             public void run() {
                 while (true) {
                     for (Entity entity : instances) {
+                        try {
+                            Thread.sleep(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         if (entity.y + entity.bitmap.getHeight() < GameView.getScreenHeight())
                             entity.yVelocity += GRAVITY;
                         else

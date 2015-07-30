@@ -5,7 +5,7 @@ import android.graphics.Rect;
 
 import java.util.UUID;
 
-import me.exerosis.spartangame.game.entity.EntityTest;
+import me.exerosis.spartangame.game.entity.NetworkEntity;
 import me.exerosis.spartangame.menu.MainActivity;
 import me.exerosis.spartangame.util.redis.RedisMessageListener;
 import me.exerosis.spartangame.util.redis.RedisMessager;
@@ -14,15 +14,15 @@ import me.exerosis.spartangame.util.redis.RedisMessager;
  * Created by Exerosis on 7/26/2015.
  */
 public class Player {
-    private EntityTest entity;
+    private NetworkEntity entity;
     private int health = 20;
     private int team = 0;
     private int direction = 1;
 
 
     public Player(int texture, int x, int y, int layer) {
-        entity = EntityTest.newInstance(texture, x, y, layer);
-        entity.activateGravity(true);
+        entity = NetworkEntity.newInstance(texture, x, y, layer);
+        entity.setGravity(true);
 
         new RedisMessageListener("game.health") {
             @Override
@@ -34,8 +34,8 @@ public class Player {
         };
     }
 
-    public void activateGravity(boolean activate) {
-        entity.activateGravity(activate);
+    public void setGravity(boolean activate) {
+        entity.setGravity(activate);
     }
 
     public Rect getRectangle() {

@@ -17,7 +17,7 @@ import android.view.WindowManager;
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.game.entity.Dagger;
 import me.exerosis.spartangame.game.entity.Entity;
-import me.exerosis.spartangame.game.entity.EntityTest;
+import me.exerosis.spartangame.game.entity.NetworkEntity;
 import me.exerosis.spartangame.game.entity.HealthBar;
 import me.exerosis.spartangame.game.entity.PicButton;
 import me.exerosis.spartangame.game.player.Player;
@@ -43,8 +43,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private Bundle settings = new Bundle();
 
+    private static Resources resources;
+
     public GameView(Context context, Bundle bundle) {
         super(context);
+
+        resources = getResources();
 
         settings.putAll(bundle);
 
@@ -70,15 +74,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         EntityStorage.initIcons(player, screenHeight, screenWidth, this); //create all icons
 
         //TODO move this to the EntityStorage
-        new PicButton(BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.blueknife), 25, screenHeight / 2, this, 3) {
+        new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.blueknife), 25, screenHeight / 2, this, 3) {
             @Override
             public void touched() {
                 //throw dagger
                 if (dagger == null) {
                     if (player.getDirection() == 1) {
-                        dagger = new Dagger(BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.bluedaggerright), player.getX() + 50, player.getY() + 50, player);
+                        dagger = new Dagger(BitmapFactory.decodeResource(getResources(), R.drawable.bluedaggerright), player.getX() + 50, player.getY() + 50, player);
                     } else {
-                        dagger = new Dagger(BitmapFactory.decodeResource(Resources.getSystem(), R.drawable.bluedaggerleft), player.getX() + 50, player.getY() + 50, player);
+                        dagger = new Dagger(BitmapFactory.decodeResource(getResources(), R.drawable.bluedaggerleft), player.getX() + 50, player.getY() + 50, player);
                     }
                 }
             }
@@ -121,7 +125,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
             canvas.drawBitmap(background, 0, 0, null); //draw background
 
-            for (Entity entity : EntityTest.getInstances())
+            for (Entity entity : Entity.getInstances())
                 if (entity != null)
                     entity.draw(canvas);
 
@@ -152,6 +156,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         return true;
     }
 
+    public static Resources getGameResources() {
+        return resources;
+    }
 
     public void initThreads() {
         animationThread = new Thread(new Runnable() {

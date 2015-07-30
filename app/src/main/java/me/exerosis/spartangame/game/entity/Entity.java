@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+import java.util.Collections;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import me.exerosis.spartangame.game.GameView;
@@ -12,15 +14,7 @@ import me.exerosis.spartangame.game.GameView;
  * Created by student on 7/21/2015.
  */
 public abstract class Entity implements Comparable<Entity> {
-
-    private static TreeSet<Entity> instances = new TreeSet<>();
-
-    private Bitmap bitmap;
-    private int y, x;
-    private int xVelocity;
-    private int yVelocity;
-    private Rect rectangle;
-    private int layer;
+    private static SortedSet<Entity> instances = Collections.synchronizedSortedSet(new TreeSet<Entity>());
 
     private static final int JUMP_LIMIT = GameView.getScreenHeight() / 4;
     private static final int TERMINAL_VELOCITY = GameView.getScreenHeight() / 20;
@@ -28,18 +22,28 @@ public abstract class Entity implements Comparable<Entity> {
     private static final int JUMP_FORCE = GameView.getScreenHeight() / 200;
     private static boolean jumping = false;
 
+    private Bitmap bitmap;
+    private int y, x;
+    private int xVelocity;
+    private int yVelocity;
+    private Rect rectangle;
+    private int layer;
+    private boolean gravity = false;
+
     static {
         new Thread() {
             @Override
             public void run() {
                 while (true) {
                     for (Entity entity : instances) {
+                        if (!entity.hasGravity())
+                            continue;
                         if (jumping) {
                             if (entity.y > GameView.getScreenHeight() - entity.bitmap.getHeight() - JUMP_LIMIT && entity.yVelocity > -TERMINAL_VELOCITY) {
                                 entity.yVelocity -= JUMP_FORCE;
                             }
 
-                            if(entity.y <= GameView.getScreenHeight()- entity.bitmap.getHeight() - JUMP_LIMIT){
+                            if (entity.y <= GameView.getScreenHeight() - entity.bitmap.getHeight() - JUMP_LIMIT) {
                                 jumping = false;
                             }
 
@@ -57,7 +61,7 @@ public abstract class Entity implements Comparable<Entity> {
         }.start();
     }
 
-    public static TreeSet<Entity> getInstances() {
+    public static SortedSet<Entity> getInstances() {
         return instances;
     }
 
@@ -123,12 +127,12 @@ public abstract class Entity implements Comparable<Entity> {
         return bitmap;
     }
 
-    public void activateGravity(boolean activate) {
-        if (activate) {
-            instances.add(this);
-        } else {
-            instances.remove(this);
-        }
+    public void setGravity(boolean activate) {
+        gravity = activate;
+    }
+
+    public boolean hasGravity() {
+        return gravity;
     }
 
     public void setBitmap(Bitmap bitmap) {
@@ -147,7 +151,7 @@ public abstract class Entity implements Comparable<Entity> {
     }
 
     public void jump() {
-        if(y >= GameView.getScreenHeight() - bitmap.getHeight()) {
+        if (y >= GameView.getScreenHeight() - bitmap.getHeight()) {
             jumping = true;
         }
     }

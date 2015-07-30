@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import me.exerosis.spartangame.game.GameView;
 import me.exerosis.spartangame.menu.MainActivity;
 import me.exerosis.spartangame.util.redis.RedisMessageListener;
 import me.exerosis.spartangame.util.redis.RedisMessager;
@@ -15,7 +16,7 @@ import me.exerosis.spartangame.util.redis.RedisMessager;
 /**
  * Created by Exerosis on 7/21/2015.
  */
-public class EntityTest extends Entity {
+public class NetworkEntity extends Entity {
     //Here UUID, there UUID
     private static Map<UUID, UUID> uuids = new HashMap<>();
     private UUID uuid;
@@ -29,8 +30,8 @@ public class EntityTest extends Entity {
 
                 if (channel.equals("game.move")) {
                     for (Entity entity : Entity.getInstances()) {
-                        if (entity instanceof EntityTest)
-                            if (uuidHost.equals(((EntityTest) entity).uuid)) {
+                        if (entity instanceof NetworkEntity)
+                            if (uuidHost.equals(((NetworkEntity) entity).uuid)) {
                                 entity.setX(Integer.valueOf(components[1]));
                                 entity.setY(Integer.valueOf(components[2]));
                             }
@@ -43,17 +44,17 @@ public class EntityTest extends Entity {
                 if (uuids.containsKey(uuidHost))
                     return;
 
-                Bitmap bitmap = BitmapFactory.decodeResource(Resources.getSystem(), Integer.valueOf(components[2]));
-                new EntityTest(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);
+                Bitmap bitmap = BitmapFactory.decodeResource(GameView.getGameResources(), Integer.valueOf(components[2]));
+                new NetworkEntity(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);
 
                 uuids.put(uuidOurs, uuidHost);
             }
         };
     }
 
-    public static EntityTest newInstance(int texture, int x, int y, int layer) {
-        Bitmap bitmap = BitmapFactory.decodeResource(Resources.getSystem(), texture);
-        EntityTest entity = new EntityTest(bitmap, x, y, layer, UUID.randomUUID());
+    public static NetworkEntity newInstance(int texture, int x, int y, int layer) {
+        Bitmap bitmap = BitmapFactory.decodeResource(GameView.getGameResources(), texture);
+        NetworkEntity entity = new NetworkEntity(bitmap, x, y, layer, UUID.randomUUID());
         UUID uuidClient = UUID.randomUUID();
 
         uuids.put(entity.uuid, uuidClient);
@@ -62,7 +63,7 @@ public class EntityTest extends Entity {
         return entity;
     }
 
-    private EntityTest(Bitmap bitmap, int x, int y, int layer, UUID uuid) {
+    private NetworkEntity(Bitmap bitmap, int x, int y, int layer, UUID uuid) {
         super(bitmap, x, y, layer);
         this.uuid = uuid;
     }

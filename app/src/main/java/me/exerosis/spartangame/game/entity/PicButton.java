@@ -16,6 +16,7 @@ public class PicButton extends Entity {
 
     public PicButton(Bitmap texture, int x, int y, View view, int layer) {
         super(texture, x, y, layer);
+        setGravity(false);
         if (!views.containsKey(view)) {
             View.OnTouchListener listener = getOnNewTouchListener();
             views.put(view, listener);

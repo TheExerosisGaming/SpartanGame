@@ -2,7 +2,6 @@ package me.exerosis.spartangame.game;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,7 +16,6 @@ import android.view.WindowManager;
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.game.entity.Dagger;
 import me.exerosis.spartangame.game.entity.Entity;
-import me.exerosis.spartangame.game.entity.NetworkEntity;
 import me.exerosis.spartangame.game.entity.HealthBar;
 import me.exerosis.spartangame.game.entity.PicButton;
 import me.exerosis.spartangame.game.player.Player;
@@ -28,8 +26,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private final GameThread gameThread; // Threads
     private Thread animationThread;
-
-    private final Bitmap background;
 
     private final Player player; // Players
 
@@ -59,8 +55,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         screenWidth = size.x;
         screenHeight = size.y;
-
-        background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
 
         String playerName = bundle.getString(SettingsActivity.ARGS_PLAYER_NAME);//get Player Name
         String otherPlayerName = bundle.getString(GameActivity.ARGS_OTHER_PLAYER); //Get Other Player Name
@@ -121,9 +115,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     protected void onDraw(Canvas canvas) {
         if (canvas != null) {
 
-            canvas.drawColor(Color.BLACK);
-
-            canvas.drawBitmap(background, 0, 0, null); //draw background
+            canvas.drawColor(Color.CYAN);
 
             for (Entity entity : Entity.getInstances())
                 if (entity != null)
@@ -133,10 +125,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 if (dagger.isOffScreen())
                     dagger = null;
 
-
-            //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wall), 0, 500, null); //draw wall
-
             healthBar.setSize(player.getHealth());
+            healthBar.draw(canvas);
 
             if (player.getHealth() == 0) {
                 gameEnd.draw(canvas);

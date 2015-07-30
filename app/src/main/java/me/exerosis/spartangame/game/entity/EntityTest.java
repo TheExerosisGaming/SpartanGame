@@ -12,8 +12,8 @@ import me.exerosis.spartangame.game.GameView;
 /**
  * Created by student on 7/21/2015.
  */
-public abstract class Entity {
-    private static List<Entity> instances = new ArrayList<>();
+public abstract class EntityTest {
+    private static List<EntityTest> instances = new ArrayList<>();
     public static final int GRAVITY = 10;
     public static final int TERMINAL_VELOCITY = 300;
     private Bitmap bitmap;
@@ -28,7 +28,7 @@ public abstract class Entity {
             @Override
             public void run() {
                 while (true) {
-                    for (Entity entity : instances) {
+                    for (EntityTest entity : instances) {
                         if (entity.y + entity.bitmap.getHeight() < GameView.getScreenHeight())
                             entity.yVelocity += GRAVITY;
                         else
@@ -44,7 +44,7 @@ public abstract class Entity {
         }.start();
     }
 
-    public Entity(Bitmap texture, int x, int y) {
+    public EntityTest(Bitmap texture, int x, int y) {
         bitmap = texture;
         height = bitmap.getHeight();
         width = bitmap.getWidth();

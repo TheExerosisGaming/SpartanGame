@@ -1,3 +1,4 @@
+/*
 package me.exerosis.spartangame.game;
 
 import android.content.Context;
@@ -23,53 +24,16 @@ import me.exerosis.spartangame.game.player.Player;
 import me.exerosis.spartangame.game.player.RemotePlayer;
 import me.exerosis.spartangame.menu.SettingsActivity;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameViewTEst extends SurfaceView implements SurfaceHolder.Callback {
 
     private final GameThread gameThread; // Threads
-    private Thread animationThread;
-
-    private final Player localPlayer; // Players
-    private final Entity otherPlayer;
-
-    private final Entity[] dpad = new Entity[4]; // Icons
-    private final Entity[] abilities = new Entity[4];
-    private final Entity gameEnd;
-    private Entity healthBar;
-
-    private Dagger dagger; // Weapons
-
-    private static int screenWidth; // Screen dimensions
-    private static int screenHeight;
 
     private Bundle settings = new Bundle();
 
-    public GameView(Context context, Bundle bundle) {
+    public GameViewTEst(Context context, Bundle bundle) {
         super(context);
 
         settings.putAll(bundle);
-
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        screenWidth = size.x;
-        screenHeight = size.y;
-
-        String playerName = bundle.getString(SettingsActivity.ARGS_PLAYER_NAME);//get Player Name
-        String otherPlayerName = bundle.getString(GameActivity.ARGS_OTHER_PLAYER); //Get Other Player Name
-
-        localPlayer = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.bluerightidle), screenWidth / 2, screenHeight / 2, playerName);
-        otherPlayer = new RemotePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.redleftidle), otherPlayerName);
-
-        gameEnd = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.victory), screenWidth / 2 - 350, screenHeight / 2 - 300, this);
-
-        initIcons(); //create all icons
-        initThreads(); //create threads
-        gameThread = new GameThread(getHolder(), this);
-
-        getHolder().addCallback(this);
-        setFocusable(true);
     }
 
     @CustomEventManager.CustomEventHandler
@@ -102,71 +66,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (canvas != null) {
-
-            canvas.drawColor(Color.BLACK);
-
-            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.background), 0, 0, null); //draw background
-
-            localPlayer.draw(canvas); //draw players
-            otherPlayer.draw(canvas);
-            if (dagger != null) {
-                Log.v("onDraw", "tracking a dagger");
-                dagger.draw(canvas);
-                if (dagger.isOffScreen()) {
-                    dagger = null;
-                    Log.v("onDraw", "dagger deleted");
-                }
-            }
+        if (canvas == null)
+            return;
 
 
-            //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.wall), 0, 500, null); //draw wall
 
-            for (int i = 0; i < 4; i++) {
-                dpad[i].draw(canvas); //draw dpad
-            }
-            for (int i = 0; i < 4; i++) {
-                abilities[i].draw(canvas); //draw dpad
-            }
 
-            switch(localPlayer.getHealth()){
-                case 20:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.twenty));
-                    break;
-                case 18:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.eighteen));
-                    break;
-                case 16:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.sixteen));
-                    break;
-                case 14:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.fourteen));
-                    break;
-                case 12:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.twelve));
-                    break;
-                case 10:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ten));
-                    break;
-                case 8:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.eight));
-                    break;
-                case 6:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.six));
-                    break;
-                case 4:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.four));
-                    break;
-                case 2:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.two));
-                    break;
-            }
 
-            if (localPlayer.getHealth() == 0) {
-                gameEnd.draw(canvas);
-            }
 
-        }
     }
 
     @Override
@@ -299,3 +206,4 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         return screenHeight;
     }
 }
+*/

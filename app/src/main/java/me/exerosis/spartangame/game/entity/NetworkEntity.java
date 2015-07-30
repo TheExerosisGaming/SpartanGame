@@ -70,14 +70,14 @@ public class NetworkEntity extends Entity {
 
     @Override
     public void setX(int x) {
+        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + x + ":" + getY(), MainActivity.getSettings());
         super.setX(x);
-        updateLocation();
     }
 
     @Override
     public void setY(int y) {
+        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + getX() + ":" + y, MainActivity.getSettings());
         super.setY(y);
-        updateLocation();
     }
 
     public UUID getUUID() {
@@ -90,6 +90,6 @@ public class NetworkEntity extends Entity {
 
     private void updateLocation() {
         System.out.println("game.move");
-        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + getX() + ":" + getY(), MainActivity.getSettings());
+
     }
 }

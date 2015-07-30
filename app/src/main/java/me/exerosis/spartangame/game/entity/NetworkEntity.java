@@ -28,7 +28,7 @@ public class NetworkEntity extends Entity {
                 String[] components = message.split(":");
                 UUID uuidHost = UUID.fromString(components[0]);
 
-                if (channel.equals("game.move")) {
+                if (channel.equals("android.game.move")) {
                     for (Entity entity : Entity.getInstances()) {
                         if (entity instanceof NetworkEntity)
                             if (uuidHost.equals(((NetworkEntity) entity).uuid)) {
@@ -89,6 +89,7 @@ public class NetworkEntity extends Entity {
     }
 
     private void updateLocation() {
+        System.out.println("game.move");
         RedisMessager.sendMessage("game.move", getPairUUID() + ":" + getX() + ":" + getY(), MainActivity.getSettings());
     }
 }

@@ -58,9 +58,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         screenWidth = size.x;
         screenHeight = size.y;
 
-        String playerName = bundle.getString(SettingsActivity.ARGS_PLAYER_NAME);//get Player Name
-        String otherPlayerName = bundle.getString(GameActivity.ARGS_OTHER_PLAYER); //Get Other Player Name
-
         player = new Player(R.drawable.bluerightidle, screenWidth / 2, screenHeight / 2, 4);
 
         gameEnd = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.victory), screenWidth / 2 - 350, screenHeight / 2 - 300, this, 5);

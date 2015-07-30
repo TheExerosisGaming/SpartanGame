@@ -18,8 +18,10 @@ import gov.pppl.androidmessaginglibrary.event.MessageReceivedEvent;
 import gov.pppl.blah.GUI.Dagger;
 import gov.pppl.blah.GUI.Entity;
 import gov.pppl.blah.GUI.PicButton;
-import gov.pppl.blah.GUI.RemotePlayer;
 import gov.pppl.blah.GUI.Player;
+import gov.pppl.blah.GUI.RemotePlayer;
+import gov.pppl.blah.menu.HostActivity;
+import gov.pppl.blah.menu.SettingsActivity;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -49,8 +51,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         screenWidth = size.x;
         screenHeight = size.y;
 
-        String playerName = bundle.getString("ARGS_PLAYER_NAME");//get Player Name
-        String otherPlayerName = bundle.getString("ARGS_SERVER_NAME"); //Get Other Player Name
+        String playerName = bundle.getString(SettingsActivity.ARGS_PLAYER_NAME);//get Player Name
+        String otherPlayerName = bundle.getString(HostActivity.ARGS_OTHER_PLAYER); //Get Other Player Name
 
         localPlayer = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.bluerightidle), screenWidth / 2, screenHeight / 2, playerName);
         otherPlayer = new RemotePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.redleftidle), otherPlayerName);

@@ -21,7 +21,6 @@ import gov.pppl.blah.util.Redis;
 import redis.clients.jedis.Jedis;
 
 public class JoinActivity extends ExActivity implements AbsListView.OnItemClickListener {
-    public static final String ARGS_OTHER_PLAYER = "other_player";
     private ListView listView;
     private Bundle settings = new Bundle();
     private ArrayList<String> listText = new ArrayList<>();
@@ -89,8 +88,7 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
             manager.connect(Bluetooth.getDeviceNames().get(text));
             return;
         }
-        settings.putString(ARGS_OTHER_PLAYER, text);
-        RedisMessager.sendMessage("game.join", text);
+        RedisMessager.sendMessage("game.join", text  + ":" + settings.getString(SettingsActivity.ARGS_SERVER_NAME));
         intend(RESULT_OK);
     }
 

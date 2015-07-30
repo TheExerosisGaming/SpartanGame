@@ -20,6 +20,8 @@ public class NetworkEntity extends Entity {
     //Here UUID, there UUID
     private static Map<UUID, UUID> uuids = new HashMap<>();
     private UUID uuid;
+    private static final int screenWidth = GameView.getScreenWidth();
+    private static final int screenHeight = GameView.getScreenHeight();
 
     static {
         new RedisMessageListener("game.spawn", "game.move") {
@@ -32,8 +34,8 @@ public class NetworkEntity extends Entity {
                     for (Entity entity : Entity.getInstances()) {
                         if (entity instanceof NetworkEntity)
                             if (uuidHost.equals(((NetworkEntity) entity).uuid)) {
-                                entity.setX(Integer.valueOf(components[1]));
-                                entity.setY(Integer.valueOf(components[2]));
+                                entity.setX(Integer.valueOf(components[1]) * screenWidth);
+                                entity.setY(Integer.valueOf(components[2]) * screenHeight);
                             }
                     }
                     return;
@@ -88,6 +90,6 @@ public class NetworkEntity extends Entity {
     }
 
     private void updateLocation() {
-        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + getX() + ":" + getY(), MainActivity.getSettings());
+        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + getX()/screenWidth + ":" + getY()/screenHeight, MainActivity.getSettings());
     }
 }

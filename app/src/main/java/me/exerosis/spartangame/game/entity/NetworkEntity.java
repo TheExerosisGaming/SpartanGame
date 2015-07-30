@@ -45,7 +45,7 @@ public class NetworkEntity extends Entity {
                     return;
 
                 Bitmap bitmap = BitmapFactory.decodeResource(GameView.getGameResources(), Integer.valueOf(components[2]));
-                new NetworkEntity(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);
+                new NetworkEntity(bitmap, 0, 0, Integer.valueOf(components[3]), uuidOurs);
 
                 uuids.put(uuidOurs, uuidHost);
             }
@@ -59,7 +59,7 @@ public class NetworkEntity extends Entity {
 
         uuids.put(entity.uuid, uuidClient);
 
-        RedisMessager.sendMessage("game.spawn", entity.uuid.toString() + ":" + uuidClient.toString() + ":" + texture + ":" + x + ":" + y + ":" + layer, MainActivity.getSettings());
+        RedisMessager.sendMessage("game.spawn", entity.uuid.toString() + ":" + uuidClient.toString() + ":" + texture + ":" + layer, MainActivity.getSettings());
         return entity;
     }
 
@@ -68,16 +68,14 @@ public class NetworkEntity extends Entity {
         this.uuid = uuid;
     }
 
-    @Override
     public void setX(int x) {
-        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + x + ":" + getY(), MainActivity.getSettings());
         super.setX(x);
+        updateLocation();
     }
 
-    @Override
     public void setY(int y) {
-        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + getX() + ":" + y, MainActivity.getSettings());
         super.setY(y);
+        updateLocation();
     }
 
     public UUID getUUID() {
@@ -89,7 +87,6 @@ public class NetworkEntity extends Entity {
     }
 
     private void updateLocation() {
-        System.out.println("game.move");
-
+        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + getX() + ":" + getY(), MainActivity.getSettings());
     }
 }

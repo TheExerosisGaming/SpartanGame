@@ -79,8 +79,8 @@ public abstract class Entity implements Comparable<Entity> {
     public Entity(Bitmap bitmap, int x, int y, int layer) {
         this.layer = layer;
         this.bitmap = bitmap;
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
 
         setRectangle(x, y, bitmap.getHeight(), bitmap.getWidth());
         instances.add(this);
@@ -157,12 +157,12 @@ public abstract class Entity implements Comparable<Entity> {
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, x, y, null);
-        if(x + xVelocity >= GameView.getScreenWidth() || x + xVelocity <= 0){
-            xVelocity = 0;
+        if (x + xVelocity >= GameView.getScreenWidth() || x + xVelocity <= 0) {
+            setXVelocity(0);
         } else {
-            x += xVelocity;
+            setX(x + xVelocity);
         }
-        y += yVelocity;
+        setY(y + yVelocity);
     }
 
     @Override

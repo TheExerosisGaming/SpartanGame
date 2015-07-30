@@ -21,7 +21,6 @@ import me.exerosis.spartangame.game.entity.Entity;
 import me.exerosis.spartangame.game.entity.HealthBar;
 import me.exerosis.spartangame.game.entity.PicButton;
 import me.exerosis.spartangame.game.entity.Player;
-import me.exerosis.spartangame.menu.SettingsActivity;
 import me.exerosis.spartangame.util.EntityStorage;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
@@ -61,6 +60,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         player = new Player(R.drawable.bluerightidle, screenWidth / 2, screenHeight / 2, 4);
 
         gameEnd = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.victory), screenWidth / 2 - 350, screenHeight / 2 - 300, this, 5);
+        gameEnd.setX(screenWidth / 2 - gameEnd.getBitmap().getWidth()/2);
+        gameEnd.setY(screenHeight / 2 - gameEnd.getBitmap().getHeight()/2);
 
         healthBar = new HealthBar(player.getHealth());
 

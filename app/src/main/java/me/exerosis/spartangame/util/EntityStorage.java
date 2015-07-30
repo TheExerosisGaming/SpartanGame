@@ -1,6 +1,7 @@
 package me.exerosis.spartangame.util;
 
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.View;
 
 import gov.pppl.blah.R;
@@ -12,11 +13,12 @@ import me.exerosis.spartangame.game.entity.Player;
  * Created by Exerosis on 7/30/2015.
  */
 public class EntityStorage {
+    
     public static void initIcons(final Player player, final int screenHeight, final int screenWidth, View view) {
         new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.up), screenWidth - 355, screenHeight / 2 + 10, view, 5) {
             @Override
             public void touched() {
-                player.setYVelocity(-screenHeight / 75);
+                player.setYVelocity(-screenHeight / 150);
             }
         };
         new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.right), screenWidth - 250, screenHeight / 2 + 150, view, 5) {
@@ -24,13 +26,13 @@ public class EntityStorage {
             public void touched() {
                 player.setBitmap(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.bluerightidle));
                 player.setDirection(1);
-                player.setXVelocity(screenWidth / 75);
+                player.setXVelocity(screenWidth / 150);
             }
         };
         new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.down), screenWidth - 355, screenHeight / 2 + 250, view, 5) {
             @Override
             public void touched() {
-                player.setYVelocity(screenHeight / 75);
+                player.setYVelocity(screenHeight / 150);
             }
         };
         new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.left), screenWidth - 500, screenHeight / 2 + 150, view, 5) {
@@ -38,7 +40,7 @@ public class EntityStorage {
             public void touched() {
                 player.setBitmap(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.blueleftidle));
                 player.setDirection(0);
-                player.setXVelocity(-screenWidth / 75);
+                player.setXVelocity(-screenWidth / 150);
             }
         };
 
@@ -70,7 +72,10 @@ public class EntityStorage {
             @Override
             public void touched() {
                 //unholy strike
-                player.damage();
+                if(player.getHealth() > 0) {
+                    player.damage();
+                }
+                Log.v("PLAYER", player.getHealth() + "health");
             }
         };
     }

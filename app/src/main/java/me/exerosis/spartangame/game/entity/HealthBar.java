@@ -25,7 +25,11 @@ public class HealthBar {
     }
 
     public void setSize(int health){
-        width = health * 30;
+        if(health > 0) {
+            width = health * 30;
+        } else {
+            width = 0;
+        }
         bar.set(point.x, point.y, point.x + width, 250); //left, top, right, bottom
     }
 

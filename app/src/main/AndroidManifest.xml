@@ -30,7 +30,9 @@
         </activity>
         <activity
             android:name="me.exerosis.spartangame.game.GameActivity"
-            android:label="@string/game_title" >
+            android:label="@string/game_title"
+            android:screenOrientation="landscape"
+            >
         </activity>
         <activity
             android:name="me.exerosis.spartangame.menu.JoinActivity"

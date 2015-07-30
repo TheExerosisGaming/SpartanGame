@@ -10,9 +10,9 @@ import me.exerosis.spartangame.game.entity.Entity;
  */
 public class Player extends Entity {
     private String playerName;
-    private int health = 100;
+    private int health = 20;
     private int team = 0;
-    private int direction = 0;
+    private int direction = 1;
 
     public Player(Bitmap bitmap, int x, int y, String name){
         super(bitmap, x, y);

@@ -34,6 +34,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private final Entity[] dpad = new Entity[4]; // Icons
     private final Entity[] abilities = new Entity[4];
     private final Entity gameEnd;
+    private Entity healthBar;
 
     private Dagger dagger; // Weapons
 
@@ -127,6 +128,39 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 abilities[i].draw(canvas); //draw dpad
             }
 
+            switch(localPlayer.getHealth()){
+                case 20:
+                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.twenty));
+                    break;
+                case 18:
+                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.eighteen));
+                    break;
+                case 16:
+                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.sixteen));
+                    break;
+                case 14:
+                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.fourteen));
+                    break;
+                case 12:
+                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.twelve));
+                    break;
+                case 10:
+                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ten));
+                    break;
+                case 8:
+                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.eight));
+                    break;
+                case 6:
+                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.six));
+                    break;
+                case 4:
+                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.four));
+                    break;
+                case 2:
+                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.two));
+                    break;
+            }
+
             if (localPlayer.getHealth() == 0) {
                 gameEnd.draw(canvas);
             }
@@ -146,6 +180,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void initIcons() {
+
+        healthBar = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.twenty), 50, 50, this);
+
         dpad[0] = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.up), screenWidth - 355, screenHeight / 2 + 10, this) {
             @Override
             public void touched() {
@@ -220,6 +257,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
         };
     }
+
     public void initThreads(){
         animationThread = new Thread(new Runnable() {
             @Override

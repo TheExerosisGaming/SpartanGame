@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import gov.pppl.androidmessaginglibrary.AndroidMessagingAPI;
 import gov.pppl.androidmessaginglibrary.bluetooth.Bluetooth;
 import gov.pppl.androidmessaginglibrary.bluetooth.BluetoothManager;
-import gov.pppl.androidmessaginglibrary.redis.RedisMessager;
+import me.exerosis.spartangame.util.redis.RedisMessager;
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.util.ExActivity;
 import me.exerosis.spartangame.util.Redis;
@@ -90,7 +90,7 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
             manager.connect(Bluetooth.getDeviceNames().get(text));
             return;
         }
-        RedisMessager.sendMessage("game.join", text  + ":" + settings.getString(SettingsActivity.ARGS_SERVER_NAME));
+        RedisMessager.sendMessage("game.join", text  + ":" + settings.getString(SettingsActivity.ARGS_SERVER_NAME), settings);
         intend(RESULT_OK);
     }
 

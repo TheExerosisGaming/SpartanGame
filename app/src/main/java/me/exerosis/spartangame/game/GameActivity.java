@@ -3,8 +3,8 @@ package me.exerosis.spartangame.game;
 import android.app.Activity;
 import android.os.Bundle;
 
-import gov.pppl.androidmessaginglibrary.redis.RedisMessager;
-import gov.pppl.androidmessaginglibrary.redis.listeners.RedisMessageListener;
+import me.exerosis.spartangame.util.redis.RedisMessager;
+import me.exerosis.spartangame.util.redis.RedisMessageListener;
 import me.exerosis.spartangame.menu.SettingsActivity;
 
 
@@ -16,7 +16,7 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         settings.putAll(getIntent().getExtras());
-        RedisMessager.sendMessage("game.sendname", settings.getString(SettingsActivity.ARGS_PLAYER_NAME));
+        RedisMessager.sendMessage("game.sendname", settings.getString(SettingsActivity.ARGS_PLAYER_NAME), settings);
 
         new RedisMessageListener("game.sendname"){
             @Override

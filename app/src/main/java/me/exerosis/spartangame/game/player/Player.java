@@ -2,7 +2,8 @@ package me.exerosis.spartangame.game.player;
 
 import android.graphics.Bitmap;
 
-import gov.pppl.androidmessaginglibrary.redis.RedisMessager;
+import me.exerosis.spartangame.menu.MainActivity;
+import me.exerosis.spartangame.util.redis.RedisMessager;
 import me.exerosis.spartangame.game.entity.Entity;
 
 /**
@@ -21,7 +22,7 @@ public class Player extends Entity {
     }
 
     private void updateLocation(){
-        RedisMessager.sendMessage("android." + playerName + "Move", getX() + ":" + getY());
+        RedisMessager.sendMessage("android.move", getPlayerName() + ":" + getX() + ":" + getY(), MainActivity.getSettings());
     }
 
     @Override
@@ -40,7 +41,7 @@ public class Player extends Entity {
 
     public void setHealth(int health) {
         this.health = health;
-        RedisMessager.sendMessage("android." + playerName + "Health", getHealth() + "");
+        RedisMessager.sendMessage("android.health", getPlayerName() + ":" + getHealth(), MainActivity.getSettings());
     }
 
     public void die(){

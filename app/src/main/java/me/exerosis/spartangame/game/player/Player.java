@@ -2,9 +2,9 @@ package me.exerosis.spartangame.game.player;
 
 import android.graphics.Bitmap;
 
+import me.exerosis.spartangame.game.entity.Entity;
 import me.exerosis.spartangame.menu.MainActivity;
 import me.exerosis.spartangame.util.redis.RedisMessager;
-import me.exerosis.spartangame.game.entity.Entity;
 
 /**
  * Created by The Exerosis on 7/26/2015.
@@ -14,6 +14,11 @@ public class Player extends Entity {
     private int health = 20;
     private int team = 0;
     private int direction = 1;
+    private int actionState = 0;
+    private static final int IDLE_STATE = 0;
+    private static final int ATTACK_STATE = 1;
+    private static final int BLOCK_STATE = 2;
+
 
     public Player(Bitmap bitmap, int x, int y, String name){
         super(bitmap, x, y);
@@ -44,8 +49,8 @@ public class Player extends Entity {
         RedisMessager.sendMessage("android.health", getPlayerName() + ":" + getHealth(), MainActivity.getSettings());
     }
 
-    public void die(){
-        health = 0;
+    public void damage(){
+        health -= 1;
     }
 
     public String getPlayerName() {

@@ -1,13 +1,16 @@
 package me.exerosis.spartangame.menu;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import me.exerosis.spartangame.game.GameActivity;
 import gov.pppl.blah.R;
+import me.exerosis.spartangame.game.GameActivity;
 import me.exerosis.spartangame.util.ExActivity;
 import me.exerosis.spartangame.util.Redis;
 import redis.clients.jedis.Jedis;
@@ -23,6 +26,9 @@ public class MainActivity extends ExActivity {
     private TextView playerNameView;
     private TextView ipView;
 
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+
     public void intend(Class<? extends Activity> clazz, int id) {
         Intent intent = new Intent(this, clazz);
         intent.putExtras(settings);
@@ -30,7 +36,7 @@ public class MainActivity extends ExActivity {
     }
 
     public void onClickJoinGameButton(View button) {
-        intend(JoinActivity.class, JOIN_MENU_REQUEST);
+        intend(GameActivity.class, JOIN_MENU_REQUEST);
     }
 
     public void onClickHostGameButton(View button) {
@@ -55,11 +61,18 @@ public class MainActivity extends ExActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+
         connectionView = getByID(R.id.text_main_connection_default, TextView.class);
         playerNameView = getByID(R.id.text_main_player_default, TextView.class);
         ipView = getByID(R.id.text_main_ip_default, TextView.class);
 
         settings.putAll(SettingsActivity.getDefaultBundle(this));
+
+        settings.putString(SettingsActivity.ARGS_HOST, sharedPref.getString(SettingsActivity.ARGS_HOST, settings.getString(SettingsActivity.ARGS_HOST)));
+        settings.putInt(SettingsActivity.ARGS_PORT, sharedPref.getInt(SettingsActivity.ARGS_PORT, settings.getInt(SettingsActivity.ARGS_PORT)));
+        settings.putString(SettingsActivity.ARGS_PLAYER_NAME, sharedPref.getString(SettingsActivity.ARGS_PLAYER_NAME, settings.getString(SettingsActivity.ARGS_PLAYER_NAME)));
 
         new Thread() {
             @Override
@@ -99,5 +112,16 @@ public class MainActivity extends ExActivity {
 
     public void onClickExitButton(View button) {
         finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Log.v(SettingsActivity.ARGS_PORT, settings.getInt(SettingsActivity.ARGS_PORT) + "");
+        editor.putString(SettingsActivity.ARGS_HOST, settings.getString(SettingsActivity.ARGS_HOST));
+        editor.putInt(SettingsActivity.ARGS_PORT, settings.getInt(SettingsActivity.ARGS_PORT));
+        editor.putString(SettingsActivity.ARGS_PLAYER_NAME, settings.getString(SettingsActivity.ARGS_PLAYER_NAME));
+        editor.apply();
     }
 }

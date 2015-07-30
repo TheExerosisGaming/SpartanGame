@@ -18,10 +18,10 @@ import gov.pppl.androidmessaginglibrary.event.MessageReceivedEvent;
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.game.entity.Dagger;
 import me.exerosis.spartangame.game.entity.Entity;
+import me.exerosis.spartangame.game.entity.HealthBar;
 import me.exerosis.spartangame.game.entity.PicButton;
 import me.exerosis.spartangame.game.player.Player;
 import me.exerosis.spartangame.game.player.RemotePlayer;
-import me.exerosis.spartangame.menu.SettingsActivity;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -34,7 +34,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private final Entity[] dpad = new Entity[4]; // Icons
     private final Entity[] abilities = new Entity[4];
     private final Entity gameEnd;
-    private Entity healthBar;
+    private final HealthBar healthBar;
 
     private Dagger dagger; // Weapons
 
@@ -56,13 +56,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         screenWidth = size.x;
         screenHeight = size.y;
 
-        String playerName = bundle.getString(SettingsActivity.ARGS_PLAYER_NAME);//get Player Name
-        String otherPlayerName = bundle.getString(GameActivity.ARGS_OTHER_PLAYER); //Get Other Player Name
+        //String playerName = bundle.getString(SettingsActivity.ARGS_PLAYER_NAME);//get Player Name
+        //String otherPlayerName = bundle.getString(GameActivity.ARGS_OTHER_PLAYER); //Get Other Player Name
+
+        String playerName = "asdasd";
+        String otherPlayerName = "asdas";
 
         localPlayer = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.bluerightidle), screenWidth / 2, screenHeight / 2, playerName);
         otherPlayer = new RemotePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.redleftidle), otherPlayerName);
 
         gameEnd = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.victory), screenWidth / 2 - 350, screenHeight / 2 - 300, this);
+
+        healthBar = new HealthBar(localPlayer.getHealth());
 
         initIcons(); //create all icons
         initThreads(); //create threads
@@ -129,38 +134,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 abilities[i].draw(canvas); //draw dpad
             }
 
-            switch(localPlayer.getHealth()){
-                case 20:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.twenty));
-                    break;
-                case 18:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.eighteen));
-                    break;
-                case 16:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.sixteen));
-                    break;
-                case 14:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.fourteen));
-                    break;
-                case 12:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.twelve));
-                    break;
-                case 10:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ten));
-                    break;
-                case 8:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.eight));
-                    break;
-                case 6:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.six));
-                    break;
-                case 4:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.four));
-                    break;
-                case 2:
-                    healthBar.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.two));
-                    break;
-            }
+            healthBar.setSize(localPlayer.getHealth());
+            healthBar.draw(canvas);
 
             if (localPlayer.getHealth() == 0) {
                 gameEnd.draw(canvas);
@@ -182,12 +157,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void initIcons() {
 
-        healthBar = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.twenty), 50, 50, this);
-
         dpad[0] = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.up), screenWidth - 355, screenHeight / 2 + 10, this) {
             @Override
             public void touched() {
-                localPlayer.setYVelocity(-20);
+                localPlayer.setYVelocity(-screenHeight/ 75);
             }
         };
         dpad[1] = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.right), screenWidth - 250, screenHeight / 2 + 150, this) {
@@ -195,13 +168,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             public void touched() {
                 localPlayer.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bluerightidle));
                 localPlayer.setDirection(1);
-                localPlayer.setXVelocity(20);
+                localPlayer.setXVelocity(screenWidth / 75);
             }
         };
         dpad[2] = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.down), screenWidth - 355, screenHeight / 2 + 250, this) {
             @Override
             public void touched() {
-                localPlayer.setYVelocity(20);
+                localPlayer.setYVelocity(screenHeight / 75);
             }
         };
         dpad[3] = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.left), screenWidth - 500, screenHeight / 2 + 150, this) {
@@ -209,7 +182,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             public void touched() {
                 localPlayer.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.blueleftidle));
                 localPlayer.setDirection(0);
-                localPlayer.setXVelocity(-20);
+                localPlayer.setXVelocity(-screenWidth / 75);
             }
         };
 
@@ -254,7 +227,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             @Override
             public void touched() {
                 //unholy strike
-                localPlayer.die();
+                localPlayer.damage();
             }
         };
     }

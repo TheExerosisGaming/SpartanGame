@@ -1,7 +1,9 @@
 package me.exerosis.spartangame.menu;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -24,9 +26,12 @@ public class SettingsActivity extends ExActivity {
 
     private EditText serverIPField;
     private EditText playerNameField;
+
     private Bundle settings = new Bundle();
 
-    @Override
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
@@ -39,11 +44,15 @@ public class SettingsActivity extends ExActivity {
 
         serverIPField.setText(settings.getString(ARGS_HOST) + ":" + settings.getInt(ARGS_PORT));
         playerNameField.setText(settings.getString(ARGS_PLAYER_NAME));
+
+        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
     }
 
 
     public void onClickSaveButton(View button) {
         isValidIP(serverIPField.getText().toString());
+
     }
 
     private void respond() {

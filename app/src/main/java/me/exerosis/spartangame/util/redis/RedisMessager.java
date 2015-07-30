@@ -2,8 +2,6 @@ package me.exerosis.spartangame.util.redis;
 
 import android.os.Bundle;
 
-import gov.pppl.androidmessaginglibrary.AndroidMessagingAPI;
-import me.exerosis.spartangame.menu.SettingsActivity;
 import me.exerosis.spartangame.util.Redis;
 import redis.clients.jedis.Jedis;
 
@@ -17,8 +15,11 @@ public class RedisMessager {
             @Override
             public void run() {
                 Jedis jedis =   Redis.get(bundle);
-                jedis.publish("android."+ channel, message);
-                jedis.quit();
+                try {
+                    jedis.publish("android." + channel, message);
+                    jedis.quit();
+                } catch(Exception ignored){
+                }
             }
         }).start();
     }

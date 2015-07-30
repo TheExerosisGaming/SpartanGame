@@ -45,7 +45,7 @@ public class NetworkEntity extends Entity {
                     return;
 
                 Bitmap bitmap = BitmapFactory.decodeResource(GameView.getGameResources(), Integer.valueOf(components[2]));
-                new NetworkEntity(bitmap, 0, 0, Integer.valueOf(components[3]), uuidOurs);
+                new NetworkEntity(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);
 
                 uuids.put(uuidOurs, uuidHost);
             }
@@ -59,7 +59,7 @@ public class NetworkEntity extends Entity {
 
         uuids.put(entity.uuid, uuidClient);
 
-        RedisMessager.sendMessage("game.spawn", entity.uuid.toString() + ":" + uuidClient.toString() + ":" + texture + ":" + layer, MainActivity.getSettings());
+        RedisMessager.sendMessage("game.spawn", entity.uuid.toString() + ":" + uuidClient.toString() + ":"  + texture + ":" + x + ":" + y + ":" + layer, MainActivity.getSettings());
         return entity;
     }
 

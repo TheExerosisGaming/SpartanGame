@@ -6,14 +6,17 @@ import android.graphics.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.UUID;
 
 import me.exerosis.spartangame.game.GameView;
 
 /**
  * Created by student on 7/21/2015.
  */
-public abstract class Entity {
-    private static List<Entity> instances = new ArrayList<>();
+public abstract class Entity implements Comparable<Entity> {
+    private static TreeSet<Entity> instances = new TreeSet<>();
+
     public static final int GRAVITY = 10;
     public static final int TERMINAL_VELOCITY = 300;
     private Bitmap bitmap;
@@ -21,7 +24,7 @@ public abstract class Entity {
     private int xVelocity;
     private int yVelocity;
     private Rect rectangle;
-    private int height, width;
+    private int layer;
 
     static {
         new Thread() {
@@ -49,13 +52,18 @@ public abstract class Entity {
         }.start();
     }
 
-    public Entity(Bitmap texture, int x, int y) {
-        bitmap = texture;
-        height = bitmap.getHeight();
-        width = bitmap.getWidth();
+    public static TreeSet<Entity> getInstances() {
+        return instances;
+    }
+
+    public Entity(Bitmap bitmap, int x, int y, int layer) {
+        this.layer = layer;
+        this.bitmap = bitmap;
         this.x = x;
         this.y = y;
-        setRectangle(x, y, height, width);
+
+        setRectangle(x, y, bitmap.getHeight(), bitmap.getWidth());
+        instances.add(this);
     }
 
     public Rect getRectangle() {
@@ -67,12 +75,7 @@ public abstract class Entity {
     }
 
     public boolean contains(int x, int y) {
-        if (x > getRectangle().left && x < getRectangle().right &&
-                y > getRectangle().bottom && y < getRectangle().top) {
-            return true;
-        } else {
-            return false;
-        }
+        return x > getRectangle().left && x < getRectangle().right && y > getRectangle().bottom && y < getRectangle().top;
     }
 
     public int getX() {
@@ -83,12 +86,16 @@ public abstract class Entity {
         this.x = x;
     }
 
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public int getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public int getLayer() {
+        return layer;
     }
 
     public int getXVelocity() {
@@ -111,6 +118,14 @@ public abstract class Entity {
         return bitmap;
     }
 
+    public void activateGravity(boolean activate) {
+        if (activate) {
+            instances.add(this);
+        } else {
+            instances.remove(this);
+        }
+    }
+
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
@@ -121,12 +136,8 @@ public abstract class Entity {
         y += yVelocity;
     }
 
-    public void activateGravity(boolean activate) {
-        if (activate) {
-            instances.add(this);
-        } else {
-            instances.remove(this);
-        }
+    @Override
+    public int compareTo(Entity another) {
+        return Integer.compare(layer, another.getLayer());
     }
-
 }

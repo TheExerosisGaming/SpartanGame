@@ -1,127 +1,93 @@
 package me.exerosis.spartangame.game.entity;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Rect;
+import android.graphics.BitmapFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
-import me.exerosis.spartangame.game.GameView;
+import me.exerosis.spartangame.menu.MainActivity;
+import me.exerosis.spartangame.util.redis.RedisMessageListener;
+import me.exerosis.spartangame.util.redis.RedisMessager;
 
 /**
- * Created by student on 7/21/2015.
+ * Created by Exerosis on 7/21/2015.
  */
-public abstract class EntityTest {
-    private static List<EntityTest> instances = new ArrayList<>();
-    public static final int GRAVITY = 10;
-    public static final int TERMINAL_VELOCITY = 300;
-    private Bitmap bitmap;
-    private int y, x;
-    private int xVelocity;
-    private int yVelocity;
-    private Rect rectangle;
-    private int height, width;
+public class EntityTest extends Entity {
+    //Here UUID, there UUID
+    private static Map<UUID, UUID> uuids = new HashMap<>();
+    private UUID uuid;
 
     static {
-        new Thread() {
+        new RedisMessageListener("game.spawn", "game.move") {
             @Override
-            public void run() {
-                while (true) {
-                    for (EntityTest entity : instances) {
-                        if (entity.y + entity.bitmap.getHeight() < GameView.getScreenHeight())
-                            entity.yVelocity += GRAVITY;
-                        else
+            public void onMessage(String channel, String message) {
+                String[] components = message.split(":");
+                UUID uuidHost = UUID.fromString(components[0]);
 
-
-                        if (entity.yVelocity < TERMINAL_VELOCITY)
-                            entity.y -= entity.yVelocity;
-                        else
-                            entity.y = 0;
+                if (channel.equals("game.move")) {
+                    for (Entity entity : Entity.getInstances()) {
+                        if (entity instanceof EntityTest)
+                            if (uuidHost.equals(((EntityTest) entity).uuid)) {
+                                entity.setX(Integer.valueOf(components[1]));
+                                entity.setY(Integer.valueOf(components[2]));
+                            }
                     }
+                    return;
                 }
+
+                UUID uuidOurs = UUID.fromString(components[1]);
+
+                if (uuids.containsKey(uuidHost))
+                    return;
+
+                Bitmap bitmap = BitmapFactory.decodeResource(Resources.getSystem(), Integer.valueOf(components[2]));
+                new EntityTest(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);
+
+                uuids.put(uuidOurs, uuidHost);
             }
-        }.start();
+        };
     }
 
-    public EntityTest(Bitmap texture, int x, int y) {
-        bitmap = texture;
-        height = bitmap.getHeight();
-        width = bitmap.getWidth();
-        this.x = x;
-        this.y = y;
-        setRectangle(x, y, height, width);
+    public static EntityTest newInstance(int texture, int x, int y, int layer) {
+        Bitmap bitmap = BitmapFactory.decodeResource(Resources.getSystem(), texture);
+        EntityTest entity = new EntityTest(bitmap, x, y, layer, UUID.randomUUID());
+        UUID uuidClient = UUID.randomUUID();
+
+        uuids.put(entity.uuid, uuidClient);
+
+        RedisMessager.sendMessage("game.spawn", entity.uuid.toString() + ":" + uuidClient.toString() + ":" + texture + ":" + x + ":" + y + ":" + layer, MainActivity.getSettings());
+        return entity;
     }
 
-    public Rect getRectangle() {
-        return rectangle;
+    private EntityTest(Bitmap bitmap, int x, int y, int layer, UUID uuid) {
+        super(bitmap, x, y, layer);
+        this.uuid = uuid;
     }
 
-    public void setRectangle(int x, int y, int height, int width) {
-        rectangle = new Rect(x, y + height, x + width, y);
-    }
-
-    public boolean contains(int x, int y) {
-        if (x > getRectangle().left && x < getRectangle().right &&
-                y > getRectangle().bottom && y < getRectangle().top) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public int getX() {
-        return x;
-    }
-
+    @Override
     public void setX(int x) {
-        this.x = x;
+        super.setX(x);
+        updateLocation();
     }
 
-    public int getY() {
-        return y;
-    }
-
+    @Override
     public void setY(int y) {
-        this.y = y;
+        super.setY(y);
+        updateLocation();
     }
 
-    public int getXVelocity() {
-        return xVelocity;
+    public UUID getUUID() {
+        return uuid;
     }
 
-    public int getYVelocity() {
-        return yVelocity;
+    public UUID getPairUUID() {
+        return uuids.get(uuid);
     }
 
-    public void setXVelocity(int xVel) {
-        this.xVelocity = xVel;
+    private void updateLocation() {
+        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + getX() + ":" + getY(), MainActivity.getSettings());
     }
-
-    public void setYVelocity(int yVel) {
-        this.yVelocity = yVel;
-    }
-
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
-
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
-
-    public void draw(Canvas canvas) {
-        canvas.drawBitmap(bitmap, x, y, null);
-        x += xVelocity;
-        y += yVelocity;
-    }
-
-    public void activateGravity(boolean activate) {
-        if (activate) {
-            instances.add(this);
-        } else {
-            instances.remove(this);
-        }
-    }
-
 }

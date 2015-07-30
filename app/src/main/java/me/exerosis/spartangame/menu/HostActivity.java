@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import gov.pppl.androidmessaginglibrary.AndroidMessagingAPI;
-import gov.pppl.androidmessaginglibrary.redis.listeners.RedisMessageListener;
+import me.exerosis.spartangame.util.redis.RedisMessageListener;
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.util.ExActivity;
 import me.exerosis.spartangame.util.Redis;

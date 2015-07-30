@@ -18,7 +18,7 @@ public class MainActivity extends ExActivity {
     public static final int JOIN_MENU_REQUEST = 3;
     public static final int START_GAME_REQUEST = 4;
 
-    private Bundle settings = new Bundle();
+    private static Bundle settings = new Bundle();
     private TextView connectionView;
     private TextView playerNameView;
     private TextView ipView;
@@ -91,6 +91,10 @@ public class MainActivity extends ExActivity {
             }
         }.start();
 
+    }
+
+    public static Bundle getSettings() {
+        return settings;
     }
 
     public void onClickExitButton(View button) {

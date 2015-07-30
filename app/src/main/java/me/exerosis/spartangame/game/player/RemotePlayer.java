@@ -2,7 +2,7 @@ package me.exerosis.spartangame.game.player;
 
 import android.graphics.Bitmap;
 
-import gov.pppl.androidmessaginglibrary.redis.listeners.RedisMessageListener;
+import me.exerosis.spartangame.util.redis.RedisMessageListener;
 import me.exerosis.spartangame.game.entity.Entity;
 
 public class RemotePlayer extends Entity {

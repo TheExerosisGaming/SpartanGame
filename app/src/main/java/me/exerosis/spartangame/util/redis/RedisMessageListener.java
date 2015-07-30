@@ -1,4 +1,4 @@
-package gov.pppl.androidmessaginglibrary.redis.listeners;
+package me.exerosis.spartangame.util.redis;
 
 import java.util.ArrayList;
 import java.util.HashMap;

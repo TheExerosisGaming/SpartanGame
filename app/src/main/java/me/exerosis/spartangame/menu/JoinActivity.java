@@ -60,8 +60,10 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
             public void run() {
                 while (true)  {
                     listText.clear();
-                    listText.addAll(jedis.smembers(HostActivity.ARGS_REDIS_SERVER_LIST));
-
+                    try {
+                        listText.addAll(jedis.smembers(HostActivity.ARGS_REDIS_SERVER_LIST));
+                    }
+                    catch (Exception e){}
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

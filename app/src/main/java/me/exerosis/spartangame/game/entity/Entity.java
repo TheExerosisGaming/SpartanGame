@@ -157,12 +157,14 @@ public abstract class Entity implements Comparable<Entity> {
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, x, y, null);
-        if (x + xVelocity >= GameView.getScreenWidth() || x + xVelocity <= 0) {
+        if (x + xVelocity >= GameView.getScreenWidth() || x + xVelocity <= 0)
             setXVelocity(0);
-        } else {
-            setX(x + xVelocity);
+        else {
+            if (xVelocity != 0)
+                setX(x + xVelocity);
+            if (yVelocity != 0)
+                setY(y + yVelocity);
         }
-        setY(y + yVelocity);
     }
 
     @Override

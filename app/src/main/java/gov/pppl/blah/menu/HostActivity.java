@@ -13,7 +13,6 @@ import gov.pppl.blah.util.Redis;
 import redis.clients.jedis.Jedis;
 
 public class HostActivity extends ExActivity {
-    public static final String ARGS_OTHER_PLAYER = "other_player";
     public static final String ARGS_REDIS_SERVER_LIST = "gamesList";
     private EditText serverNameField;
     private Bundle settings = new Bundle();
@@ -35,13 +34,10 @@ public class HostActivity extends ExActivity {
         new RedisMessageListener("game.join") {
             @Override
             public void onMessage(String message) {
-                String[] components = message.split(":");
-
-                if (!components[0].equals(settings.getString(SettingsActivity.ARGS_SERVER_NAME)))
+                if (!message.equals(settings.getString(SettingsActivity.ARGS_SERVER_NAME)))
                     return;
 
                 removeFromDB(settings.getString(SettingsActivity.ARGS_SERVER_NAME));
-                settings.putString(ARGS_OTHER_PLAYER, components[1]);
                 intend(RESULT_OK);
             }
         };

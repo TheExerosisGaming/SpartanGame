@@ -28,15 +28,17 @@ public class PicButton extends Entity {
         return new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                for (Entity entity : getInstances()) {
-                    if (!(entity instanceof PicButton))
-                        continue;
-                    PicButton button = (PicButton) entity;
+                synchronized (getInstances()) {
+                    for (Entity entity : getInstances()) {
+                        if (!(entity instanceof PicButton))
+                            continue;
+                        PicButton button = (PicButton) entity;
 
-                    if (button.contains((int) event.getX(), (int) event.getY()))
-                        button.touched();
+                        if (button.contains((int) event.getX(), (int) event.getY()))
+                            button.touched();
+                    }
+                    return false;
                 }
-                return false;
             }
         };
     }

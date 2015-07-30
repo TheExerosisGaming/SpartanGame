@@ -16,6 +16,7 @@ import me.exerosis.spartangame.game.GameView;
  */
 public abstract class Entity implements Comparable<Entity> {
     private static List<Entity> instances = Collections.synchronizedList(new ArrayList<Entity>());
+    private static List<Entity> gravityInstances = Collections.synchronizedList(new ArrayList<Entity>());
 
     private static final int JUMP_LIMIT = GameView.getScreenHeight() / 4;
     private static final int TERMINAL_VELOCITY = GameView.getScreenHeight() / 20;
@@ -36,10 +37,7 @@ public abstract class Entity implements Comparable<Entity> {
             @Override
             public void run() {
                 while (true) {
-                    synchronized (instances) {
-                        for (Entity entity : instances) {
-                            if (!entity.hasGravity())
-                                continue;
+                        for (Entity entity : gravityInstances) {
                             if (jumping) {
                                 if (entity.y > GameView.getScreenHeight() - entity.bitmap.getHeight() - JUMP_LIMIT && entity.yVelocity > -TERMINAL_VELOCITY) {
                                     entity.yVelocity -= JUMP_FORCE;
@@ -57,7 +55,6 @@ public abstract class Entity implements Comparable<Entity> {
                                     entity.yVelocity = 0;
                                 }
                             }
-                        }
                     }
                 }
             }
@@ -66,6 +63,15 @@ public abstract class Entity implements Comparable<Entity> {
 
     public static List<Entity> getInstances() {
         return instances;
+    }
+    public static List<Entity> getSyncInstances() {
+        synchronized (instances) {
+            return instances;
+        }
+    }
+
+    public static List<Entity> getSyncInstancesClone() {
+        return Collections.unmodifiableList(instances);
     }
 
     public Entity(Bitmap bitmap, int x, int y, int layer) {

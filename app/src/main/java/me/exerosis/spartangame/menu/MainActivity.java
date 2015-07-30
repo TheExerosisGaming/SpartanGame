@@ -36,7 +36,7 @@ public class MainActivity extends ExActivity {
     }
 
     public void onClickJoinGameButton(View button) {
-        intend(GameActivity.class, JOIN_MENU_REQUEST);
+        intend(JoinActivity.class, JOIN_MENU_REQUEST);
     }
 
     public void onClickHostGameButton(View button) {

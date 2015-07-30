@@ -43,7 +43,7 @@ public class EntityStorage {
         };
 
         if (player.getTeam() == 0) { // blue
-            new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.blueattack), 25, 50, view, 5) {
+            new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.blueattack), 25, screenHeight / 2 - 500, view, 5) {
                 @Override
                 public void touched() {
                     //attack
@@ -66,7 +66,7 @@ public class EntityStorage {
                 }
             };
         }
-        new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.poison), 25, screenHeight - 300, view, 5) {
+        new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.poison), 25, screenHeight/2 + 250, view, 5) {
             @Override
             public void touched() {
                 //unholy strike

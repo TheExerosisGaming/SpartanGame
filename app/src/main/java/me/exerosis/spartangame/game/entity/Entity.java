@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.SortedSet;
 
 import me.exerosis.spartangame.game.GameView;
 
@@ -158,7 +157,11 @@ public abstract class Entity implements Comparable<Entity> {
 
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, x, y, null);
-        x += xVelocity;
+        if(x + xVelocity >= GameView.getScreenWidth() || x + xVelocity <= 0){
+            xVelocity = 0;
+        } else {
+            x += xVelocity;
+        }
         y += yVelocity;
     }
 

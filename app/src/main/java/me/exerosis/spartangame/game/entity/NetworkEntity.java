@@ -59,7 +59,7 @@ public class NetworkEntity extends Entity {
 
         uuids.put(entity.uuid, uuidClient);
 
-        RedisMessager.sendMessage("game.spawn", entity.uuid.toString() + ":" + uuidClient.toString() + ":" + x + ":" + y + ":" + texture + ":" + layer, MainActivity.getSettings());
+        RedisMessager.sendMessage("game.spawn", entity.uuid.toString() + ":" + uuidClient.toString() + ":"  + texture + ":" + x + ":" + y + ":" + layer, MainActivity.getSettings());
         return entity;
     }
 

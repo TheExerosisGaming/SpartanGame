@@ -52,7 +52,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         screenHeight = size.y;
 
         String playerName = bundle.getString(SettingsActivity.ARGS_PLAYER_NAME);//get Player Name
-        String otherPlayerName = bundle.getString(HostActivity.ARGS_OTHER_PLAYER); //Get Other Player Name
+        String otherPlayerName = bundle.getString(GameActivity.ARGS_OTHER_PLAYER); //Get Other Player Name
 
         localPlayer = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.bluerightidle), screenWidth / 2, screenHeight / 2, playerName);
         otherPlayer = new RemotePlayer(BitmapFactory.decodeResource(getResources(), R.drawable.redleftidle), otherPlayerName);

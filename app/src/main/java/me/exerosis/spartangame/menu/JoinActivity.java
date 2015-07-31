@@ -84,12 +84,6 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         TextView textView = (TextView) view;
         String text = textView.getText().toString();
-        if (Bluetooth.getDeviceNames().containsKey(text)) {
-            BluetoothManager manager = AndroidMessagingAPI.getBluetoothManager();
-            manager.start();
-            manager.connect(Bluetooth.getDeviceNames().get(text));
-            return;
-        }
         RedisMessager.sendMessage("game.join", text, settings);
         intend(RESULT_OK);
     }

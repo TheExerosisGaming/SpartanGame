@@ -24,12 +24,12 @@ public class Player {
         entity = NetworkEntity.newInstance(texture, x, y, layer);
         entity.setGravity(false);
 
-        new RedisMessageListener("game.health") {
+        new RedisMessageListener("game.damaged") {
             @Override
             public void onMessage(String message) {
                 String[] parts = message.split(":");
                 if (UUID.fromString(parts[0]).equals(entity.getUUID().toString()))
-                    setHealth(Integer.valueOf(parts[1]));
+                    setHealth(getHealth() - Integer.valueOf(parts[1]));
             }
         };
     }
@@ -108,9 +108,6 @@ public class Player {
 
     public void setHealth(int health) {
         this.health = health;
-        if(health > 0) {
-            RedisMessager.sendMessage("game.health", entity.getUUID() + ":" + getHealth(), MainActivity.getSettings());
-        }
     }
 
     public void damage() {

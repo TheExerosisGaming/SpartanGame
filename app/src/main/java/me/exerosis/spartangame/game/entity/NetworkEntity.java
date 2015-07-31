@@ -20,6 +20,7 @@ public class NetworkEntity extends Entity {
     //Here UUID, there UUID
     private static Map<UUID, UUID> uuids = new HashMap<>();
     private UUID uuid;
+    private NetworkEntity entity;
     private static final int screenWidth = GameView.getScreenWidth();
     private static final int screenHeight = GameView.getScreenHeight();
 

@@ -16,6 +16,7 @@ public class GameActivity extends Activity {
     public static final String ARGS_OTHER_PLAYER = "other_player";
     private Bundle settings = new Bundle();
     public static GameActivity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

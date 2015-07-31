@@ -15,6 +15,7 @@ import me.exerosis.spartangame.game.GameView;
  * Created by student on 7/21/2015.
  */
 public abstract class Entity implements Comparable<Entity> {
+
     private static List<Entity> instances = Collections.synchronizedList(new ArrayList<Entity>());
     private static List<Entity> gravityInstances = Collections.synchronizedList(new ArrayList<Entity>());
 

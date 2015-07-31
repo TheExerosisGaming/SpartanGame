@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import gov.pppl.androidmessaginglibrary.AndroidMessagingAPI;
 import gov.pppl.androidmessaginglibrary.bluetooth.Bluetooth;
 import gov.pppl.androidmessaginglibrary.bluetooth.BluetoothManager;
+import me.exerosis.spartangame.game.GameActivity;
 import me.exerosis.spartangame.util.redis.RedisMessager;
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.util.ExActivity;
@@ -31,6 +32,11 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
+
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+
+
 
         if (getIntent().getExtras() != null)
             settings.putAll(getIntent().getExtras());

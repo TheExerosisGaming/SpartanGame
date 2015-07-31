@@ -1,5 +1,6 @@
 package me.exerosis.spartangame.game.entity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
@@ -8,6 +9,7 @@ import android.util.Log;
 import java.util.UUID;
 
 import gov.pppl.blah.R;
+import me.exerosis.spartangame.game.GameActivity;
 import me.exerosis.spartangame.game.GameView;
 import me.exerosis.spartangame.game.entity.NetworkEntity;
 import me.exerosis.spartangame.menu.MainActivity;
@@ -154,9 +156,14 @@ public class Player {
         new Thread(){
             @Override
             public void run() {
-                super.run();
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                GameActivity.getActivity().intend();
             }
-        };
+        }.start();
     }
 
     public int getTeam() {

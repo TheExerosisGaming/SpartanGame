@@ -1,6 +1,7 @@
 package me.exerosis.spartangame.game;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -22,6 +23,7 @@ import me.exerosis.spartangame.game.entity.Entity;
 import me.exerosis.spartangame.game.entity.HealthBar;
 import me.exerosis.spartangame.game.entity.PicButton;
 import me.exerosis.spartangame.game.entity.Player;
+import me.exerosis.spartangame.menu.MainActivity;
 import me.exerosis.spartangame.util.EntityStorage;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {

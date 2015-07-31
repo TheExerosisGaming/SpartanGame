@@ -23,8 +23,8 @@ public class NetworkEntity extends Entity {
     private static Map<UUID, UUID> uuids = new HashMap<>();
     private static Map<UUID, NetworkEntity> entities = new HashMap<>();
     private UUID uuid;
-    private static final int screenWidth = GameView.getScreenWidth();
-    private static final int screenHeight = GameView.getScreenHeight();
+    private static int screenWidth;
+    private static int screenHeight;
 
     public static void onMove(String message){
         String[] components = message.split(":");
@@ -67,6 +67,9 @@ public class NetworkEntity extends Entity {
 
     private NetworkEntity(Bitmap bitmap, int x, int y, int layer, UUID uuid) {
         super(bitmap, x, y, layer);
+        GameView.getScreenWidth();
+        screenHeight = GameView.getScreenHeight();
+        screenWidth = GameView.getScreenWidth();
         this.uuid = uuid;
         entities.put(uuid, this);
         setGravity(false);
@@ -89,7 +92,6 @@ public class NetworkEntity extends Entity {
     public UUID getPairUUID() {
         return uuids.get(uuid);
     }
-
 
     public NetworkEntity getPairEntity() {
         return entities.get(uuid);

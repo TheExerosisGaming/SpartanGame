@@ -3,6 +3,7 @@ package me.exerosis.spartangame.game;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.menu.MainActivity;
@@ -23,13 +24,14 @@ public class GameActivity extends Activity {
 
         settings.putAll(getIntent().getExtras());
         RedisMessager.sendMessage("game.sendname", settings.getString(SettingsActivity.ARGS_PLAYER_NAME), settings);
-
+        setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
         new RedisMessageListener("game.sendname") {
             @Override
             public void onMessage(String message) {
+                Log.e("XD", message);
                 if (!message.equals(settings.getString(SettingsActivity.ARGS_PLAYER_NAME))) {
                     settings.putString(ARGS_OTHER_PLAYER, message);
-                    setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
+
                 }
             }
         };

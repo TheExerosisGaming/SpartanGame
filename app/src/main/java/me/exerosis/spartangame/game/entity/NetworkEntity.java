@@ -46,12 +46,12 @@ public class NetworkEntity extends Entity {
 
         /*if (uuids.containsKey(uuidHost))
             return;
-            */
+*/
 
         Log.e("SPAWNED", "Spawned");
 
         Bitmap bitmap = BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.blueleftidle);
-        new NetworkEntity(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);
+        new NetworkEntity(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.blueleftidle), Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);
 
         uuids.put(uuidOurs, uuidHost);
     }

@@ -48,7 +48,7 @@ public class NetworkEntity extends Entity {
                     return;
 
                 Bitmap bitmap = BitmapFactory.decodeResource(GameView.getGameResources(), Integer.valueOf(components[2]));
-                new NetworkEntity(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs).setGravity(false);
+                new NetworkEntity(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);
 
                 uuids.put(uuidOurs, uuidHost);
             }

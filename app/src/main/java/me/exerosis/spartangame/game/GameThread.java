@@ -29,7 +29,7 @@ public class GameThread extends Thread {
         Canvas canvas;
         while (running) {
             try {
-                Thread.sleep(1);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

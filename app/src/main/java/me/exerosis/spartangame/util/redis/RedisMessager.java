@@ -19,8 +19,8 @@ public class RedisMessager {
                 Jedis jedis = Redis.get(bundle);
                 try {
                     jedis.publish("android." + channel, message);
-                    jedis.quit();
                 } catch (Exception ignored) {
+                    ignored.printStackTrace();
                 }
             }
         }).start();

@@ -95,7 +95,7 @@ public class EntityStorage {
             public void touched() {
                 //unholy strike
                 if (player.getHealth() > 0) {
-                    player.damage();
+                    player.damage(1);
                 }
                 touchingIcon = true;
             }

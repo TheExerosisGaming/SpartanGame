@@ -29,7 +29,7 @@ public class Player {
 
     public Player(int texture, int x, int y, int layer) {
         entity = NetworkEntity.newInstance(texture, x, y, layer);
-        entity.setGravity(false);
+        entity.setGravity(true);
 
         new RedisMessageListener("game.damage") {
             @Override
@@ -137,10 +137,6 @@ public class Player {
             showEndGameDrawable(R.drawable.defeat);
             RedisMessager.sendMessage("game.end", entity.getPairUUID().toString(), MainActivity.getSettings());
         }
-    }
-
-    public void damage() {
-        damage(1);
     }
 
     public void damage(int amount) {

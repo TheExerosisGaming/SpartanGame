@@ -132,7 +132,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             if (player.getHealth() == 0) {
                 gameEnd.draw(canvas);
             }
-
         }
     }
 

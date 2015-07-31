@@ -28,12 +28,12 @@ public class NetworkEntity extends Entity {
             @Override
             public void onMessage(String channel, String message) {
                 String[] components = message.split(":");
-                UUID uuidHost = UUID.fromString(components[0]);
+                UUID uuidOurs = UUID.fromString(components[0]);
 
                 if (channel.equals("android.game.move")) {
                     for (Entity entity : Entity.getInstances()) {
                         if (entity instanceof NetworkEntity)
-                            if (uuidHost.equals(((NetworkEntity) entity).uuid)) {
+                            if (uuidOurs.equals(((NetworkEntity) entity).uuid)) {
                                 entity.setX(Integer.valueOf(components[1]) * screenWidth);
                                 entity.setY(Integer.valueOf(components[2]) * screenHeight);
                             }
@@ -41,7 +41,8 @@ public class NetworkEntity extends Entity {
                     return;
                 }
 
-                UUID uuidOurs = UUID.fromString(components[1]);
+
+                UUID uuidHost = UUID.fromString(components[1]);
 
                 if (uuids.containsKey(uuidHost))
                     return;
@@ -61,7 +62,7 @@ public class NetworkEntity extends Entity {
 
         uuids.put(entity.uuid, uuidClient);
 
-        RedisMessager.sendMessage("game.spawn", entity.uuid.toString() + ":" + uuidClient.toString() + ":"  + texture + ":" + x + ":" + y + ":" + layer, MainActivity.getSettings());
+        RedisMessager.sendMessage("game.spawn", uuidClient.toString() + ":" + entity.uuid.toString() + ":"  + texture + ":" + x + ":" + y + ":" + layer, MainActivity.getSettings());
         return entity;
     }
 

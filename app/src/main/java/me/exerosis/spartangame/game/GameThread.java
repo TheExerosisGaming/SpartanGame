@@ -37,7 +37,7 @@ public class GameThread extends Thread {
             }
             finally {
                if(canvas != null)
-                   surfaceHolder.unlockCanvasAndPost(canvas);
+                   this.surfaceHolder.unlockCanvasAndPost(canvas);
             }
         }
     }

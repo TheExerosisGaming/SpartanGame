@@ -26,8 +26,8 @@ public class MainActivity extends ExActivity {
     private TextView playerNameView;
     private TextView ipView;
 
-    SharedPreferences sharedPref;
-    SharedPreferences.Editor editor;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
 
     public void intend(Class<? extends Activity> clazz, int id) {
         Intent intent = new Intent(this, clazz);

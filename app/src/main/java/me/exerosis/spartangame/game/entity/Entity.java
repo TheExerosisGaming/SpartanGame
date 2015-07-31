@@ -20,7 +20,7 @@ public abstract class Entity implements Comparable<Entity> {
     private static final int JUMP_LIMIT = GameView.getScreenHeight() / 4;
     private static final int TERMINAL_VELOCITY = GameView.getScreenHeight() / 20;
     private static final int GRAVITY = GameView.getScreenHeight() / 25;
-    private static final int JUMP_FORCE = GameView.getScreenHeight() / 200;
+    private static final int JUMP_FORCE = GameView.getScreenHeight() / 100;
     private static boolean jumping = false;
 
     private Bitmap bitmap;
@@ -30,6 +30,7 @@ public abstract class Entity implements Comparable<Entity> {
     private Rect rectangle;
     private int layer;
     private boolean gravity = false;
+    private boolean visible = true;
 
     static {
         new Thread() {
@@ -61,8 +62,6 @@ public abstract class Entity implements Comparable<Entity> {
             }
         }.start();
     }
-
-    private boolean visible;
 
     public static List<Entity> getInstances() {
         return instances;

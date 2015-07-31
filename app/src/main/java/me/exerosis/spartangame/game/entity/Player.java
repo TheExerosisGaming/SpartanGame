@@ -46,7 +46,7 @@ public class Player {
     }
 
     public void setGravity(boolean activate) {
-        entity.setGravity(activate);
+      entity.setGravity(activate);
     }
 
     public Rect getRectangle() {
@@ -144,7 +144,6 @@ public class Player {
         PicButton gameEnd = new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), id), screenWidth / 2 - 350, screenHeight / 2 - 300, GameView.getView(), 5);
         gameEnd.setX(screenHeight / 2 - gameEnd.getBitmap().getWidth() / 2);
         gameEnd.setY(screenWidth / 2 - gameEnd.getBitmap().getHeight() / 2);
-        gameEnd.setVisible(false);
     }
 
     public int getTeam() {

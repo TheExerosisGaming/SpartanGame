@@ -31,6 +31,7 @@ public class RedisMessageListener {
             channelList.add("android.".concat(channel));
 
         messageListeners.put(channelList, this);
+        Log.e("NUMBER", messageListeners.size() + "");
     }
 
     public void onMessage(String message) {

@@ -72,7 +72,7 @@ public class SettingsActivity extends ExActivity {
 
                 editor.putString(ARGS_HOST, settings.getString(ARGS_HOST));
                 editor.putInt(ARGS_PORT, settings.getInt(ARGS_PORT));
-                editor.putString(ARGS_PLAYER_NAME, settings.getString(ARGS_PLAYER_NAME));
+                editor.putString(ARGS_SERVER_NAME, settings.getString(ARGS_PLAYER_NAME));
                 editor.apply();
 
                 intend(settings, RESULT_OK);

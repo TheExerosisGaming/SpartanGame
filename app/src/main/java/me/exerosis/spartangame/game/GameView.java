@@ -66,7 +66,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         EntityStorage.initIcons(player, screenHeight, screenWidth, this); //create all icons
 
         //TODO move this to the EntityStorage
-        new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.blueknife), 25, screenHeight / 2, this, 3) {
+        new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.blueknife), 25, screenHeight / 2, this, 5) {
             @Override
             public void touched() {
                 //throw dagger

@@ -40,13 +40,7 @@ public class Player {
             public void onMessage(String message) {
                 if (!UUID.fromString(message).equals(entity.getUUID()))
                     return;
-
-                int screenWidth = GameView.getScreenHeight();
-                int screenHeight = GameView.getScreenHeight();
-                PicButton gameEnd = new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.victory), screenWidth / 2 - 350, screenHeight / 2 - 300, GameView.getView(), 5);
-                gameEnd.setX(screenHeight / 2 - gameEnd.getBitmap().getWidth() / 2);
-                gameEnd.setY(screenWidth/ 2 - gameEnd.getBitmap().getHeight() / 2);
-                gameEnd.setVisible(false);
+                showEndGameDrawable(R.drawable.victory);
             }
         };
     }
@@ -129,8 +123,11 @@ public class Player {
 
     public void setHealth(int health) {
         this.health = health;
-        if (health < 1)
+
+        if (health < 1) {
+            showEndGameDrawable(R.drawable.defeat);
             RedisMessager.sendMessage("game.end", entity.getPairUUID().toString(), MainActivity.getSettings());
+        }
     }
 
     public void damage() {
@@ -139,6 +136,15 @@ public class Player {
 
     public void damage(int amount) {
         setHealth(getHealth() - amount);
+    }
+
+    private void showEndGameDrawable(int id){
+        int screenWidth = GameView.getScreenHeight();
+        int screenHeight = GameView.getScreenHeight();
+        PicButton gameEnd = new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), id), screenWidth / 2 - 350, screenHeight / 2 - 300, GameView.getView(), 5);
+        gameEnd.setX(screenHeight / 2 - gameEnd.getBitmap().getWidth() / 2);
+        gameEnd.setY(screenWidth / 2 - gameEnd.getBitmap().getHeight() / 2);
+        gameEnd.setVisible(false);
     }
 
     public int getTeam() {

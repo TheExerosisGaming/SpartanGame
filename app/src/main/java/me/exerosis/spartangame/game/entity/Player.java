@@ -3,6 +3,7 @@ package me.exerosis.spartangame.game.entity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ public class Player {
     private int health = 20;
     private int team = 0;
     private int direction = 1;
+    private boolean blocking = false;
 
 
     public Player(int texture, int x, int y, int layer) {
@@ -32,7 +34,11 @@ public class Player {
             public void onMessage(String message) {
                 String[] parts = message.split(":");
                 if (UUID.fromString(parts[0]).equals(entity.getUUID().toString()))
-                    setHealth(getHealth() - Integer.valueOf(parts[1]));
+                    if(blocking == false) {
+                        setHealth(getHealth() - Integer.valueOf(parts[1]));
+                    } else {
+                        Log.v("Player", "Attack blocked");
+                    }
             }
         };
         new RedisMessageListener("game.end") {
@@ -40,6 +46,7 @@ public class Player {
             public void onMessage(String message) {
                 if (!UUID.fromString(message).equals(entity.getUUID()))
                     return;
+
                 showEndGameDrawable(R.drawable.victory);
             }
         };
@@ -156,5 +163,9 @@ public class Player {
 
     public void setDirection(int direction) {
         this.direction = direction;
+    }
+
+    public void setBlocking(boolean blocking){
+        this.blocking = blocking;
     }
 }

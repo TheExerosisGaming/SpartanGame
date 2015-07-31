@@ -147,7 +147,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         animationThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
+                while (!EntityStorage.touchingIcon) {
                     try {
                         Thread.sleep(250);
                         if (player.getXVelocity() != 0) { //moving

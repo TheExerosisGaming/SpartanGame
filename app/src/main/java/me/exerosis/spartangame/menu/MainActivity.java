@@ -113,9 +113,4 @@ public class MainActivity extends ExActivity {
     public void onClickExitButton(View button) {
         finish();
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 }

@@ -31,7 +31,7 @@ public abstract class Entity implements Comparable<Entity> {
     private int layer;
     private boolean gravity = false;
 
-    static {
+    /*static {
         new Thread() {
             @Override
             public void run() {
@@ -60,7 +60,7 @@ public abstract class Entity implements Comparable<Entity> {
                 }
             }
         }.start();
-    }
+    }*/
 
     public static List<Entity> getInstances() {
         return instances;

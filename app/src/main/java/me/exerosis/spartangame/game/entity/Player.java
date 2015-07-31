@@ -22,7 +22,7 @@ public class Player {
 
     public Player(int texture, int x, int y, int layer) {
         entity = NetworkEntity.newInstance(texture, x, y, layer);
-        entity.setGravity(true);
+        entity.setGravity(false);
 
         new RedisMessageListener("game.health") {
             @Override

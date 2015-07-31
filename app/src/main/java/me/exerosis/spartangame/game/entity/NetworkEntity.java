@@ -30,13 +30,19 @@ public class NetworkEntity extends Entity {
         String[] components = message.split(":");
         UUID uuidOurs = UUID.fromString(components[0]);
 
+        if(entities.containsKey(uuidOurs)){
+            NetworkEntity entity = entities.get(uuidOurs);
+            entity.x = (int) (Double.valueOf(components[1]) * screenWidth);
+            entity.y = (int) (Double.valueOf(components[2]) * screenHeight);
+        }
+            /*
         for (Entity entity : Entity.getInstances()) {
             if (entity instanceof NetworkEntity)
                 if (uuidOurs.equals(((NetworkEntity) entity).uuid)) {
                     entity.x = (int) (screenWidth / Double.valueOf(components[1]));
                     entity.y = (int) (screenHeight / Double.valueOf(components[2]));
                 }
-        }
+        }*/
     }
 
     public static void onSpawn(String message){

@@ -32,7 +32,12 @@ public class GameActivity extends Activity {
                 Log.e("XD", message);
                 if (!message.equals(settings.getString(SettingsActivity.ARGS_PLAYER_NAME))) {
                     settings.putString(ARGS_OTHER_PLAYER, message);
-                    setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
+                        }
+                    });
                 }
             }
         };

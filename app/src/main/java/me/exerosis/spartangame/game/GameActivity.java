@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import gov.pppl.blah.R;
 import me.exerosis.spartangame.menu.MainActivity;
 import me.exerosis.spartangame.util.redis.RedisMessager;
 import me.exerosis.spartangame.util.redis.RedisMessageListener;
@@ -18,6 +19,7 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
+        setContentView(R.layout.activity_game);
 
         settings.putAll(getIntent().getExtras());
         RedisMessager.sendMessage("game.sendname", settings.getString(SettingsActivity.ARGS_PLAYER_NAME), settings);

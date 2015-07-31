@@ -11,16 +11,16 @@ import redis.clients.jedis.Jedis;
  */
 public class RedisMessager {
 
-    public static void sendMessage(final String channel, final String message, final Bundle bundle){
+    public static void sendMessage(final String channel, final String message, final Bundle bundle) {
         Log.e("MESSAGE_SENT!", "Channel: " + channel + " Message: " + message);
-        new Thread(new Runnable(){
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                Jedis jedis =   Redis.get(bundle);
+                Jedis jedis = Redis.get(bundle);
                 try {
                     jedis.publish("android." + channel, message);
                     jedis.quit();
-                } catch(Exception ignored){
+                } catch (Exception ignored) {
                 }
             }
         }).start();

@@ -28,6 +28,11 @@ public class GameThread extends Thread {
     public void run() {
         Canvas canvas;
         while (running) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             canvas = null;
             try {
                 canvas = this.surfaceHolder.lockCanvas();

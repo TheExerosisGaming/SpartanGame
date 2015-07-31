@@ -67,6 +67,7 @@ public class RedisMessageListener {
 
             @Override
             public void onMessage(String channel, String message) {
+                Log.e("MESSAGE_RECEIVED!", "Channel: " + channel + " Message: " + message);
             }
 
             @Override

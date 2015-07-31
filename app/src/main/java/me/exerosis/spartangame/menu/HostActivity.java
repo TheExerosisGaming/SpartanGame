@@ -23,13 +23,15 @@ public class HostActivity extends ExActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
-        activity = this;
+
         serverNameField = getByID(R.id.field_server_name, EditText.class);
 
         settings.putAll(getIntent().getExtras());
         settings.putString(SettingsActivity.ARGS_SERVER_NAME, settings.getString(SettingsActivity.ARGS_PLAYER_NAME));
         String name = settings.getString(SettingsActivity.ARGS_SERVER_NAME);
         serverNameField.setText(name);
+
+        activity = this;
 
         addToDB(name);
     }

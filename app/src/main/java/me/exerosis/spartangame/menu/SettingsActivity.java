@@ -52,12 +52,13 @@ public class SettingsActivity extends ExActivity {
 
 
     public void onClickSaveButton(View button) {
-        isValidIP(serverIPField.getText().toString());
 
         editor.putString(ARGS_HOST, settings.getString(ARGS_HOST));
         editor.putInt(ARGS_PORT, settings.getInt(ARGS_PORT));
         editor.putString(ARGS_PLAYER_NAME, settings.getString(ARGS_PLAYER_NAME));
         editor.apply();
+
+        isValidIP(serverIPField.getText().toString());
     }
 
     private void respond() {

@@ -25,6 +25,7 @@ import me.exerosis.spartangame.game.entity.PicButton;
 import me.exerosis.spartangame.game.entity.Player;
 import me.exerosis.spartangame.menu.MainActivity;
 import me.exerosis.spartangame.util.EntityStorage;
+import me.exerosis.spartangame.util.redis.RedisMessager;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -92,6 +93,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
         gameThread.setRunning(true);
         gameThread.start();
+        RedisMessager.sendMessage("game.damage", player.getPairUUID() + ":" + 2, MainActivity.getSettings());
     }
 
     @Override

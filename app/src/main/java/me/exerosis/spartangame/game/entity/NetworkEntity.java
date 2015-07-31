@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import gov.pppl.blah.R;
 import me.exerosis.spartangame.game.GameView;
 import me.exerosis.spartangame.menu.MainActivity;
 import me.exerosis.spartangame.util.redis.RedisMessageListener;
@@ -48,7 +49,7 @@ public class NetworkEntity extends Entity {
 
         Log.e("SPAWNED", "Spawned");
 
-        Bitmap bitmap = BitmapFactory.decodeResource(GameView.getGameResources(), Integer.valueOf(components[2]));
+        Bitmap bitmap = BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.blueleftidle);
         new NetworkEntity(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);
 
         uuids.put(uuidOurs, uuidHost);

@@ -33,11 +33,6 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
 
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
-
-
-
         if (getIntent().getExtras() != null)
             settings.putAll(getIntent().getExtras());
 

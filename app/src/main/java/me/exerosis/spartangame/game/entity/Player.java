@@ -25,37 +25,17 @@ public class Player {
     private int team = 0;
     private int direction = 1;
     private boolean blocking = false;
-
+    private static Player player;
 
     public Player(int texture, int x, int y, int layer) {
         entity = NetworkEntity.newInstance(texture, x, y, layer);
         entity.setGravity(true);
 
-        new RedisMessageListener("game.damage") {
-            @Override
-            public void onMessage(String message) {
-                String[] parts = message.split(":");
-                if (UUID.fromString(parts[0]).equals(entity.getUUID().toString()))
-                    if(blocking == false) {
-                        setHealth(getHealth() - Integer.valueOf(parts[1]));
-                    } else {
-                        Log.v("Player", "Attack blocked");
-                    }
-            }
-        };
-        new RedisMessageListener("game.end") {
-            @Override
-            public void onMessage(String message) {
-                if (!UUID.fromString(message).equals(entity.getUUID()))
-                    return;
-
-                showEndGameDrawable(R.drawable.victory);
-            }
-        };
+        player = this;
     }
 
     public void setGravity(boolean activate) {
-      entity.setGravity(activate);
+        entity.setGravity(activate);
     }
 
     public Rect getRectangle() {
@@ -143,13 +123,13 @@ public class Player {
         setHealth(getHealth() - amount);
     }
 
-    private void showEndGameDrawable(int id){
+    private void showEndGameDrawable(int id) {
         int screenWidth = GameView.getScreenHeight();
         int screenHeight = GameView.getScreenHeight();
         PicButton gameEnd = new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), id), screenWidth / 2 - 350, screenHeight / 2 - 300, GameView.getView(), 5);
         gameEnd.setX(screenHeight / 2 - gameEnd.getBitmap().getWidth() / 2);
         gameEnd.setY(screenWidth / 2 - gameEnd.getBitmap().getHeight() / 2);
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 try {
@@ -174,7 +154,7 @@ public class Player {
         this.direction = direction;
     }
 
-    public void setBlocking(boolean blocking){
+    public void setBlocking(boolean blocking) {
         this.blocking = blocking;
     }
 
@@ -185,5 +165,30 @@ public class Player {
         } else {
             return false;
         }
+    }
+
+    public void damage(String message) {
+        String[] parts = message.split(":");
+        if (UUID.fromString(parts[0]).equals(entity.getUUID().toString()))
+            if (blocking == false) {
+                setHealth(getHealth() - Integer.valueOf(parts[1]));
+            } else {
+                Log.v("Player", "Attack blocked");
+            }
+    }
+
+    public void end(String message) {
+        if (!UUID.fromString(message).equals(entity.getUUID()))
+            return;
+
+        showEndGameDrawable(R.drawable.victory);
+    }
+
+    public static void onDamage(String message) {
+        player.damage(message);
+    }
+
+    public static void onEnd(String message) {
+        player.end(message);
     }
 }

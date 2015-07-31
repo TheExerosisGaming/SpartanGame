@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.game.GameActivity;
+import me.exerosis.spartangame.game.entity.Player;
 import me.exerosis.spartangame.util.ExActivity;
 import me.exerosis.spartangame.util.Redis;
+import me.exerosis.spartangame.util.redis.RedisMessageListener;
 import redis.clients.jedis.Jedis;
 
 public class MainActivity extends ExActivity {
@@ -60,6 +62,25 @@ public class MainActivity extends ExActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        new RedisMessageListener("game.name") {
+            @Override
+            public void onMessage(String message) {
+                GameActivity.onClick(message);
+            }
+        };
+        new RedisMessageListener("game.damage") {
+            @Override
+            public void onMessage(String message) {
+                Player.onDamage(message);
+            }
+        };
+        new RedisMessageListener("game.end") {
+            @Override
+            public void onMessage(String message) {
+                Player.onEnd(message);
+            }
+        };
 
         sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         editor = sharedPref.edit();

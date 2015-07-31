@@ -90,13 +90,6 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
         String text = textView.getText().toString();
         RedisMessager.sendMessage("game.join", text, settings);
         intend(RESULT_OK);
-
-        new RedisMessageListener("game.name") {
-            @Override
-            public void onMessage(String message) {
-                GameActivity.onClick(message);
-            }
-        };
     }
 
     private void intend(int id) {

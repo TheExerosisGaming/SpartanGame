@@ -38,12 +38,7 @@ public class HostActivity extends ExActivity {
             public void onMessage(String message) {
                 if (!message.equals(settings.getString(SettingsActivity.ARGS_SERVER_NAME)))
                     return;
-                new RedisMessageListener("game.name") {
-                    @Override
-                    public void onMessage(String message) {
-                        GameActivity.onClick(message);
-                    }
-                };
+
                 removeFromDB(settings.getString(SettingsActivity.ARGS_SERVER_NAME));
                 intend(RESULT_OK);
             }

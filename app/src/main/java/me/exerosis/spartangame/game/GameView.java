@@ -37,7 +37,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private Dagger dagger; // Weapons
 
-    private static View view; // Weapons
+    private static GameView view; // Weapons
 
     private static int screenWidth; // Screen dimensions
     private static int screenHeight;

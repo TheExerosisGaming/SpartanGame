@@ -21,27 +21,9 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
-        setContentView(R.layout.activity_game);
-
+        setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
         settings.putAll(getIntent().getExtras());
 
-
-        RedisMessager.sendMessage("game.name", settings.getString(SettingsActivity.ARGS_PLAYER_NAME), settings);
-    }
-
-    public void clicked(String message) {
-        if (message.equals(settings.getString(SettingsActivity.ARGS_PLAYER_NAME)))
-            return;
-
-        settings.putString(ARGS_OTHER_PLAYER, message);
-        Log.e("XD", message);
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
-            }
-        });
     }
 
     public static GameActivity getActivity() {

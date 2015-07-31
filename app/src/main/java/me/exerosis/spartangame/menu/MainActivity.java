@@ -61,7 +61,6 @@ public class MainActivity extends ExActivity {
         }
     }
 
-    private ArrayList<String> nameMessages = new ArrayList<>();
     private ArrayList<String> damageMessages = new ArrayList<>();
     private ArrayList<String> endMessages = new ArrayList<>();
     private ArrayList<String> joinMessages = new ArrayList<>();
@@ -70,13 +69,6 @@ public class MainActivity extends ExActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        new RedisMessageListener("game.name") {
-            @Override
-            public void onMessage(String message) {
-                nameMessages.add(message);
-            }
-        };
         new RedisMessageListener("game.damage") {
             @Override
             public void onMessage(String message) {
@@ -105,13 +97,6 @@ public class MainActivity extends ExActivity {
             @Override
             public void run() {
                 while (true) {
-                    int x = 0;
-                    while (x < nameMessages.size()) {
-                        if (GameActivity.activity != null)
-                            GameActivity.activity.clicked(nameMessages.remove(x));
-                        else
-                            x++;
-                    }
                     int y = 0;
                     while (y < damageMessages.size()) {
                         if (Player.player != null)

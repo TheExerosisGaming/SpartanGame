@@ -53,25 +53,21 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
         intend(RESULT_CANCELED);
     }
 
-    private void onPreListEvent() {
-        listText.addAll(Bluetooth.getDeviceNames().keySet());
-        adapter.notifyDataSetChanged();
-    }
 
     private void startRefresh() {
         new Thread() {
             @Override
             public void run() {
-                while (true)  {
+                while (true) {
                     listText.clear();
                     try {
                         listText.addAll(jedis.smembers(HostActivity.ARGS_REDIS_SERVER_LIST));
+                    } catch (Exception e) {
                     }
-                    catch (Exception e){}
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            onPreListEvent();
+                            adapter.notifyDataSetChanged();
                         }
                     });
                     try {

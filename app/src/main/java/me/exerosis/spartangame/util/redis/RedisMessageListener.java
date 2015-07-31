@@ -1,6 +1,7 @@
 package me.exerosis.spartangame.util.redis;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,7 +67,6 @@ public class RedisMessageListener {
 
             @Override
             public void onMessage(String channel, String message) {
-                AndroidMessagingAPI.getEventManager().callEvent(new RedisMessageReceivedEvent(message, channel));
             }
 
             @Override
@@ -75,7 +75,7 @@ public class RedisMessageListener {
 
             @Override
             public void onPMessage(String pattern, String channel, String message) {
-                AndroidMessagingAPI.getEventManager().callEvent(new RedisMessageReceivedEvent(message, channel));
+                Log.e("MESSAGE_RECEIVED!", "Channel: " + channel + " Message: " + message);
                 for (Map.Entry<List<String>, RedisMessageListener> entry : messageListeners.entrySet())
                     if (entry.getKey().contains(channel)) {
                         if (entry.getKey().size() > 1)
@@ -95,7 +95,7 @@ public class RedisMessageListener {
         Thread thread = new Thread(new Runnable() {
             public void run() {
                 try {
-                    Jedis jedis = new Jedis(SettingsActivity.DEFAULT_HOST, Integer.valueOf(SettingsActivity.DEFAULT_PORT));
+                    Jedis jedis = new Jedis(SettingsActivity.DEFAULT_HOST, SettingsActivity.DEFAULT_PORT);
                     jedis.psubscribe(getNewListener(), "android.*");
                     jedis.quit();
                 } catch (Exception e) {

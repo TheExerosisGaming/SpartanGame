@@ -62,8 +62,7 @@ public class HostActivity extends ExActivity {
             public void run() {
                 Jedis jedis = Redis.get(settings);
                 try {
-                    if (jedis.sismember(ARGS_REDIS_SERVER_LIST, oldName))
-                        jedis.srem(ARGS_REDIS_SERVER_LIST, oldName);
+                    jedis.srem(ARGS_REDIS_SERVER_LIST, oldName);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

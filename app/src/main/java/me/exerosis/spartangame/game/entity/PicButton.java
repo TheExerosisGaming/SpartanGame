@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 public class PicButton extends Entity {
@@ -28,7 +29,7 @@ public class PicButton extends Entity {
         return new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                    for (Entity entity : getSyncInstances()) {
+                    for (Entity entity : Collections.unmodifiableList(getSyncInstances())) {
                         if (!(entity instanceof PicButton))
                             continue;
                         PicButton button = (PicButton) entity;

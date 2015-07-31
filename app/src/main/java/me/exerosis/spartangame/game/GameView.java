@@ -150,27 +150,29 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         animationThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (!EntityStorage.touchingIcon) {
-                    try {
-                        Thread.sleep(250);
-                        if (player.getXVelocity() != 0) { //moving
-                            if (player.getDirection() == 1) {
-                                player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bluerightidle));
-                                Thread.sleep(250);
-                                player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bluerightidle2));
-                            } else {
-                                player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.blueleftidle));
-                                Thread.sleep(250);
-                                player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.blueleftidle2));
+                while (true) {
+                    if (!EntityStorage.touchingIcon) {
+                        try {
+                            Thread.sleep(250);
+                            if (player.getXVelocity() != 0) { //moving
+                                if (player.getDirection() == 1) {
+                                    player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bluerightidle));
+                                    Thread.sleep(250);
+                                    player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bluerightidle2));
+                                } else {
+                                    player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.blueleftidle));
+                                    Thread.sleep(250);
+                                    player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.blueleftidle2));
+                                }
+                            } else { //not moving
+                                if (player.getDirection() == 1) {
+                                    player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bluerightidle));
+                                } else {
+                                    player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.blueleftidle));
+                                }
                             }
-                        } else { //not moving
-                            if (player.getDirection() == 1) {
-                                player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.bluerightidle));
-                            } else {
-                                player.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.blueleftidle));
-                            }
+                        } catch (InterruptedException ignored) {
                         }
-                    } catch (InterruptedException ignored) {
                     }
                 }
             }

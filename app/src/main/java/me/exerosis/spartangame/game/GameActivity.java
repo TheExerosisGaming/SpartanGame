@@ -35,7 +35,6 @@ public class GameActivity extends Activity {
                 }
             }
         };
-
     }
 
     public static GameActivity getActivity() {

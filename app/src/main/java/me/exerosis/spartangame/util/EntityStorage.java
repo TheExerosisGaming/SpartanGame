@@ -51,6 +51,13 @@ public class EntityStorage {
                     //attack
                     if (player.getDirection() == 0) {
                         player.setBitmap(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.blueleftlunge));
+                        if(player.getPairEntity().getRectangle().intersect(player.getRectangle())){
+                            if(player.getDirection() == 0 && player.getPairEntity().getX() <= player.getX()){
+
+                            } else if(player.getDirection() == 1 && player.getPairEntity().getX() >= player.getX());
+
+                        }
+
                     } else {
                         player.setBitmap(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.bluerightlunge));
                     }

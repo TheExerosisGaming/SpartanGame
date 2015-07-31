@@ -69,9 +69,23 @@ public class MainActivity extends ExActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
+        connectionView = getByID(R.id.text_main_connection_default, TextView.class);
+        playerNameView = getByID(R.id.text_main_player_default, TextView.class);
+        ipView = getByID(R.id.text_main_ip_default, TextView.class);
+
+        settings.putAll(SettingsActivity.getDefaultBundle(this));
+
+        settings.putString(SettingsActivity.ARGS_HOST, sharedPref.getString(SettingsActivity.ARGS_HOST, settings.getString(SettingsActivity.ARGS_HOST)));
+        settings.putInt(SettingsActivity.ARGS_PORT, sharedPref.getInt(SettingsActivity.ARGS_PORT, settings.getInt(SettingsActivity.ARGS_PORT)));
+        settings.putString(SettingsActivity.ARGS_PLAYER_NAME, sharedPref.getString(SettingsActivity.ARGS_PLAYER_NAME, settings.getString(SettingsActivity.ARGS_PLAYER_NAME)));
+
+
         RedisMessageListener.setupListener();
-        
-        new RedisMessageListener("game.damage") {
+
+        new RedisMessageListener("game.damage", "game.end", "game.join", "game.spawn", "game.move") {
             @Override
             public void onMessage(String message) {
                 damageMessages.add(message);
@@ -130,18 +144,6 @@ public class MainActivity extends ExActivity {
                 }
             }
         }.start();
-
-        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-
-        connectionView = getByID(R.id.text_main_connection_default, TextView.class);
-        playerNameView = getByID(R.id.text_main_player_default, TextView.class);
-        ipView = getByID(R.id.text_main_ip_default, TextView.class);
-
-        settings.putAll(SettingsActivity.getDefaultBundle(this));
-
-        settings.putString(SettingsActivity.ARGS_HOST, sharedPref.getString(SettingsActivity.ARGS_HOST, settings.getString(SettingsActivity.ARGS_HOST)));
-        settings.putInt(SettingsActivity.ARGS_PORT, sharedPref.getInt(SettingsActivity.ARGS_PORT, settings.getInt(SettingsActivity.ARGS_PORT)));
-        settings.putString(SettingsActivity.ARGS_PLAYER_NAME, sharedPref.getString(SettingsActivity.ARGS_PLAYER_NAME, settings.getString(SettingsActivity.ARGS_PLAYER_NAME)));
 
         new Thread() {
             @Override

@@ -93,7 +93,7 @@ public class RedisMessageListener {
         Thread thread = new Thread(new Runnable() {
             public void run() {
                 try {
-                    Jedis jedis = new Jedis(SettingsActivity.DEFAULT_HOST, SettingsActivity.DEFAULT_PORT);
+                    Jedis jedis = Redis.get(MainActivity.getSettings());
                     jedis.psubscribe(getNewListener(), "android.*");
                     jedis.quit();
                 } catch (Exception e) {

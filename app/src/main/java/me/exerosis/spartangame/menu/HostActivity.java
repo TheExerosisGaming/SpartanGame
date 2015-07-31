@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import gov.pppl.androidmessaginglibrary.AndroidMessagingAPI;
 import gov.pppl.blah.R;
+import me.exerosis.spartangame.game.GameActivity;
 import me.exerosis.spartangame.util.ExActivity;
 import me.exerosis.spartangame.util.Redis;
 import me.exerosis.spartangame.util.redis.RedisMessageListener;
@@ -37,7 +38,12 @@ public class HostActivity extends ExActivity {
             public void onMessage(String message) {
                 if (!message.equals(settings.getString(SettingsActivity.ARGS_SERVER_NAME)))
                     return;
-
+                new RedisMessageListener("game.name") {
+                    @Override
+                    public void onMessage(String message) {
+                        GameActivity.onClick(message);
+                    }
+                };
                 removeFromDB(settings.getString(SettingsActivity.ARGS_SERVER_NAME));
                 intend(RESULT_OK);
             }
@@ -78,7 +84,7 @@ public class HostActivity extends ExActivity {
         super.onDestroy();
     }
 
-    public void onClickSaveButton(View button) { 
+    public void onClickSaveButton(View button) {
         replaceInDB(settings.getString(SettingsActivity.ARGS_SERVER_NAME), serverNameField.getText().toString());
     }
 

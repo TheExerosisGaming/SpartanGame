@@ -26,24 +26,26 @@ public class GameActivity extends Activity {
         settings.putAll(getIntent().getExtras());
 
 
-        new RedisMessageListener("game.name") {
-            @Override
-            public void onMessage(String message) {
-                if (!message.equals(settings.getString(SettingsActivity.ARGS_PLAYER_NAME))) {
-                    settings.putString(ARGS_OTHER_PLAYER, message);
-                    Log.e("XD", message);
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
-                        }
-                    });
-                }
-            }
-        };
-
         RedisMessager.sendMessage("game.name", settings.getString(SettingsActivity.ARGS_PLAYER_NAME), settings);
+    }
+
+    public void clicked(String message) {
+        if (message.equals(settings.getString(SettingsActivity.ARGS_PLAYER_NAME)))
+            return;
+
+        settings.putString(ARGS_OTHER_PLAYER, message);
+        Log.e("XD", message);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
+            }
+        });
+    }
+
+    public static void onClick(String message) {
+        activity.clicked(message);
     }
 
     public static GameActivity getActivity() {

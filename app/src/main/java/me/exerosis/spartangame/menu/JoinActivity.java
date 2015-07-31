@@ -2,6 +2,7 @@ package me.exerosis.spartangame.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -15,6 +16,8 @@ import gov.pppl.androidmessaginglibrary.AndroidMessagingAPI;
 import gov.pppl.androidmessaginglibrary.bluetooth.Bluetooth;
 import gov.pppl.androidmessaginglibrary.bluetooth.BluetoothManager;
 import me.exerosis.spartangame.game.GameActivity;
+import me.exerosis.spartangame.game.GameView;
+import me.exerosis.spartangame.util.redis.RedisMessageListener;
 import me.exerosis.spartangame.util.redis.RedisMessager;
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.util.ExActivity;
@@ -87,6 +90,13 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
         String text = textView.getText().toString();
         RedisMessager.sendMessage("game.join", text, settings);
         intend(RESULT_OK);
+
+        new RedisMessageListener("game.name") {
+            @Override
+            public void onMessage(String message) {
+                GameActivity.onClick(message);
+            }
+        };
     }
 
     private void intend(int id) {

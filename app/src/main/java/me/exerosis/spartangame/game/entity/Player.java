@@ -106,6 +106,10 @@ public class Player {
         return health;
     }
 
+    public NetworkEntity getPairEntity() {
+        return entity.getPairEntity();
+    }
+
     public void setHealth(int health) {
         this.health = health;
         if(health < 1){

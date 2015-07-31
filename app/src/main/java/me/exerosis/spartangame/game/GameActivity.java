@@ -25,11 +25,13 @@ public class GameActivity extends Activity {
         new RedisMessageListener("game.sendname") {
             @Override
             public void onMessage(String message) {
-                if (!message.equals(settings.getString(SettingsActivity.ARGS_PLAYER_NAME)))
+                if (!message.equals(settings.getString(SettingsActivity.ARGS_PLAYER_NAME))) {
                     settings.putString(ARGS_OTHER_PLAYER, message);
+                    setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
+                }
             }
         };
-        setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
+
     }
 
     public static GameActivity getActivity() {

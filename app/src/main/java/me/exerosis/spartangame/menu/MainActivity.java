@@ -93,7 +93,7 @@ public class MainActivity extends ExActivity {
                 NetworkEntity.onSpawn(message);
             }
         };
-        new RedisMessageListener("game.move") {
+        new RedisMessageListener("game.move"){
             @Override
             public void onMessage(String message) {
                 NetworkEntity.onMove(message);

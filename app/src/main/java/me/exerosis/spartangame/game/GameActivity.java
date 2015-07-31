@@ -16,6 +16,7 @@ public class GameActivity extends Activity {
     public static final String ARGS_OTHER_PLAYER = "other_player";
     private Bundle settings = new Bundle();
     public static GameActivity activity;
+    private boolean on = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,13 @@ public class GameActivity extends Activity {
 
         settings.putAll(getIntent().getExtras());
 
+        new Thread() {
+            @Override
+            public void run() {
+                while (on)
+                    RedisMessager.sendMessage("game.name", settings.getString(SettingsActivity.ARGS_PLAYER_NAME), settings);
+            }
+        }.start();
 
         new RedisMessageListener("game.name") {
             @Override
@@ -32,6 +40,8 @@ public class GameActivity extends Activity {
                 Log.e("XD", message);
                 if (!message.equals(settings.getString(SettingsActivity.ARGS_PLAYER_NAME))) {
                     settings.putString(ARGS_OTHER_PLAYER, message);
+
+                    on = false;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -42,7 +52,6 @@ public class GameActivity extends Activity {
             }
         };
 
-        RedisMessager.sendMessage("game.name", settings.getString(SettingsActivity.ARGS_PLAYER_NAME), settings);
     }
 
     public static GameActivity getActivity() {

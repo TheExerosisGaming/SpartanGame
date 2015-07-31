@@ -1,6 +1,7 @@
 package me.exerosis.spartangame.util.redis;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import me.exerosis.spartangame.util.Redis;
 import redis.clients.jedis.Jedis;
@@ -11,6 +12,7 @@ import redis.clients.jedis.Jedis;
 public class RedisMessager {
 
     public static void sendMessage(final String channel, final String message, final Bundle bundle){
+        Log.e("MESSAGE_SENT!", "Channel: " + channel + " Message: " + message);
         new Thread(new Runnable(){
             @Override
             public void run() {

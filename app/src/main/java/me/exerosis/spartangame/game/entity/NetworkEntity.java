@@ -3,6 +3,7 @@ package me.exerosis.spartangame.game.entity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,26 +25,28 @@ public class NetworkEntity extends Entity {
     private static final int screenWidth = GameView.getScreenWidth();
     private static final int screenHeight = GameView.getScreenHeight();
 
-    public static void onMessage(String channel, String message){
+    public static void onMove(String message){
         String[] components = message.split(":");
         UUID uuidOurs = UUID.fromString(components[0]);
 
-        if (channel.equals("android.game.move")) {
-            for (Entity entity : Entity.getInstances()) {
-                if (entity instanceof NetworkEntity)
-                    if (uuidOurs.equals(((NetworkEntity) entity).uuid)) {
-                        entity.x = (int) (Double.valueOf(components[1]) * screenWidth);
-                        entity.y = (int) (Double.valueOf(components[2]) * screenHeight);
-                    }
-            }
-            return;
+        for (Entity entity : Entity.getInstances()) {
+            if (entity instanceof NetworkEntity)
+                if (uuidOurs.equals(((NetworkEntity) entity).uuid)) {
+                    entity.x = (int) (Double.valueOf(components[1]) * screenWidth);
+                    entity.y = (int) (Double.valueOf(components[2]) * screenHeight);
+                }
         }
+    }
 
-
+    public static void onSpawn(String message){
+        String[] components = message.split(":");
+        UUID uuidOurs = UUID.fromString(components[0]);
         UUID uuidHost = UUID.fromString(components[1]);
 
         if (uuids.containsKey(uuidHost))
             return;
+
+        Log.e("SPAWNED", "Spawned");
 
         Bitmap bitmap = BitmapFactory.decodeResource(GameView.getGameResources(), Integer.valueOf(components[2]));
         new NetworkEntity(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);

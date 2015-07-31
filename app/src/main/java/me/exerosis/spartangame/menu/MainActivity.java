@@ -87,12 +87,19 @@ public class MainActivity extends ExActivity {
                 joinMessages.add(message);
             }
         };
-        new RedisMessageListener("game.spawn", "game.move") {
+        new RedisMessageListener("game.spawn") {
             @Override
-            public void onMessage(String channel, String message) {
-                NetworkEntity.onMessage(channel, message);
+            public void onMessage(String message) {
+                NetworkEntity.onSpawn(message);
             }
         };
+        new RedisMessageListener("game.move") {
+            @Override
+            public void onMessage(String message) {
+                NetworkEntity.onMove(message);
+            }
+        };
+
         new Thread() {
             @Override
             public void run() {

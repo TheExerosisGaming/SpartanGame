@@ -3,6 +3,7 @@ package me.exerosis.spartangame.game.entity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -165,8 +166,10 @@ public abstract class Entity implements Comparable<Entity> {
     }
 
     public void draw(Canvas canvas) {
-        if (!isVisible())
+        if (!isVisible()) {
+            Log.e("lolol", getClass().getName());
             return;
+        }
 
         canvas.drawBitmap(bitmap, x, y, null);
         if (x + getBitmap().getHeight() + xVelocity >= GameView.getScreenWidth() || x + xVelocity <= 0)

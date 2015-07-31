@@ -19,7 +19,7 @@ public class AndroidMessagingAPI {
         instancePool = new InstancePool();
 
         eventManager = new CustomEventManager();
-        bluetoothManager = new BluetoothManager();
+        //bluetoothManager = new BluetoothManager();
 
         instancePool.add(eventManager);
         instancePool.add(bluetoothManager);

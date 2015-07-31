@@ -32,7 +32,6 @@ public class HostActivity extends ExActivity {
         serverNameField.setText(name);
 
         addToDB(name);
-        AndroidMessagingAPI.getEventManager().registerListener(this);
     }
 
     private void addToDB(final String newName) {
@@ -41,7 +40,7 @@ public class HostActivity extends ExActivity {
             public void run() {
                 Jedis jedis = Redis.get(settings);
                 try {
-                    jedis.sadd(ARGS_REDIS_SERVER_LIST, newName);
+                  //  jedis.sadd(ARGS_REDIS_SERVER_LIST, newName);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -62,7 +61,7 @@ public class HostActivity extends ExActivity {
             public void run() {
                 Jedis jedis = Redis.get(settings);
                 try {
-                    jedis.srem(ARGS_REDIS_SERVER_LIST, oldName);
+//                    jedis.srem(ARGS_REDIS_SERVER_LIST, oldName);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

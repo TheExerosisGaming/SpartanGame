@@ -134,6 +134,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             player.setXVelocity(0);
             player.setYVelocity(0);
+            EntityStorage.touchingIcon = false;
         }
 
         return true;

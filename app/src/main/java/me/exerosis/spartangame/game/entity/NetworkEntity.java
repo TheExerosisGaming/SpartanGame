@@ -68,7 +68,6 @@ public class NetworkEntity extends Entity {
 
     private NetworkEntity(Bitmap bitmap, int x, int y, int layer, UUID uuid) {
         super(bitmap, x, y, layer);
-        setGravity(false);
         this.uuid = uuid;
     }
 

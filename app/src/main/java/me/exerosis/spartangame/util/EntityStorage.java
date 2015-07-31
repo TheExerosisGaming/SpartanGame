@@ -57,17 +57,17 @@ public class EntityStorage {
                 public void touched() {
                     //attack
                     if (player.getDirection() == 0) {
-                        player.setBitmap(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.blueleftlunge));
-                        Log.v("Players", "Intersecting");
-                        if (player.getDirection() == 0 && player.getPairEntity().getX() <= player.getX()) {
-                            Log.v("Players", "Intersecting facing left");
+                        if (player.intersects(player.getPairEntity().getRectangle())) {
+                            player.setBitmap(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.blueleftlunge));
+                            Log.v("Players", "Intersecting");
+                            if (player.getDirection() == 0 && player.getPairEntity().getX() <= player.getX()) {
+                                Log.v("Players", "Intersecting facing left");
+                                RedisMessager.sendMessage("game.damage", player.getPairUUID() + ":" + 2, MainActivity.getSettings());
+                            } else if (player.getDirection() == 1 && player.getPairEntity().getX() >= player.getX())
+                                ;
                             RedisMessager.sendMessage("game.damage", player.getPairUUID() + ":" + 2, MainActivity.getSettings());
-                        } else if (player.getDirection() == 1 && player.getPairEntity().getX() >= player.getX())
-                            ;
-                        RedisMessager.sendMessage("game.damage", player.getPairUUID() + ":" + 2, MainActivity.getSettings());
-                        Log.v("Players", "Intersecting facing right");
-
-
+                            Log.v("Players", "Intersecting facing right");
+                        }
                     } else {
                         player.setBitmap(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.bluerightlunge));
                     }

@@ -181,4 +181,13 @@ public class Player {
     public void setBlocking(boolean blocking){
         this.blocking = blocking;
     }
+
+    public boolean intersects(Rect rect) {
+        if (getRectangle().contains(rect.left, rect.top) || getRectangle().contains(rect.left, rect.bottom)
+                || getRectangle().contains(rect.right, rect.top) || getRectangle().contains(rect.right, rect.bottom)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

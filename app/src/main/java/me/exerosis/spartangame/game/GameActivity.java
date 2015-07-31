@@ -23,15 +23,15 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_game);
 
         settings.putAll(getIntent().getExtras());
-        RedisMessager.sendMessage("game.sendname", settings.getString(SettingsActivity.ARGS_PLAYER_NAME), settings);
-        setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
-        new RedisMessageListener("game.sendname") {
+        RedisMessager.sendMessage("game.name", settings.getString(SettingsActivity.ARGS_PLAYER_NAME), settings);
+
+        new RedisMessageListener("game.name") {
             @Override
             public void onMessage(String message) {
                 Log.e("XD", message);
                 if (!message.equals(settings.getString(SettingsActivity.ARGS_PLAYER_NAME))) {
                     settings.putString(ARGS_OTHER_PLAYER, message);
-
+                    setContentView(new GameView(getApplicationContext(), getIntent().getExtras()));
                 }
             }
         };

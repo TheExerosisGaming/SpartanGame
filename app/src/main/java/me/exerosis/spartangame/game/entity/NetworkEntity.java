@@ -42,6 +42,7 @@ public class NetworkEntity extends Entity {
         UUID uuidOurs = UUID.fromString(components[0]);
         UUID uuidHost = UUID.fromString(components[1]);
 
+
         if (uuids.containsKey(uuidHost))
             return;
 

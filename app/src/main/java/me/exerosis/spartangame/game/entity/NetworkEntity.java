@@ -34,8 +34,8 @@ public class NetworkEntity extends Entity {
                     for (Entity entity : Entity.getInstances()) {
                         if (entity instanceof NetworkEntity)
                             if (uuidOurs.equals(((NetworkEntity) entity).uuid)) {
-                                entity.setX(Integer.valueOf(components[1]) * screenWidth);
-                                entity.setY(Integer.valueOf(components[2]) * screenHeight);
+                                entity.x = Integer.valueOf(components[1]) * screenWidth;
+                                entity.y = Integer.valueOf(components[2]) * screenHeight;
                             }
                     }
                     return;

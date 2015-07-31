@@ -24,7 +24,7 @@ public abstract class Entity implements Comparable<Entity> {
     private static boolean jumping = false;
 
     private Bitmap bitmap;
-    private int y, x;
+    protected int y, x;
     private int xVelocity;
     private int yVelocity;
     private Rect rectangle;

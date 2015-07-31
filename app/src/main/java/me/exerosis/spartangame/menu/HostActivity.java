@@ -40,7 +40,7 @@ public class HostActivity extends ExActivity {
             public void run() {
                 Jedis jedis = Redis.get(settings);
                 try {
-                  //  jedis.sadd(ARGS_REDIS_SERVER_LIST, newName);
+                    jedis.sadd(ARGS_REDIS_SERVER_LIST, newName);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

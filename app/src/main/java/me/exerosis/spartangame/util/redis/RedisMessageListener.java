@@ -24,10 +24,6 @@ import redis.clients.jedis.JedisPubSub;
 public class RedisMessageListener {
     public static Map<List<String>, RedisMessageListener> messageListeners = new HashMap<>();
 
-    static {
-        setupListener();
-    }
-
     public RedisMessageListener(final String... channels) {
         List<String> channelList = new ArrayList<>();
 
@@ -92,7 +88,7 @@ public class RedisMessageListener {
         };
     }
 
-    private static void setupListener() {
+    public static void setupListener() {
         Thread thread = new Thread(new Runnable() {
             public void run() {
                 try {

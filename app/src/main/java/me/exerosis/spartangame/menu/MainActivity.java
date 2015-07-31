@@ -69,6 +69,8 @@ public class MainActivity extends ExActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RedisMessageListener.setupListener();
+        
         new RedisMessageListener("game.damage") {
             @Override
             public void onMessage(String message) {

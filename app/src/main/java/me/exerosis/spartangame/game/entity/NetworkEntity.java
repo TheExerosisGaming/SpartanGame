@@ -72,7 +72,6 @@ public class NetworkEntity extends Entity {
         screenWidth = GameView.getScreenWidth();
         this.uuid = uuid;
         entities.put(uuid, this);
-        setGravity(false);
     }
 
     public void setX(int x) {

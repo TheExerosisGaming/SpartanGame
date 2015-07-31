@@ -78,7 +78,7 @@ public class HostActivity extends ExActivity {
         super.onDestroy();
     }
 
-    public void onClickSaveButton(View button) {
+    public void onClickSaveButton(View button) { 
         replaceInDB(settings.getString(SettingsActivity.ARGS_SERVER_NAME), serverNameField.getText().toString());
     }
 

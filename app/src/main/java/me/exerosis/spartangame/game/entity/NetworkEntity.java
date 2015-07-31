@@ -96,6 +96,6 @@ public class NetworkEntity extends Entity {
     }
 
     private void updateLocation() {
-        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + (double) (getX() / screenWidth) + ":" + (double) (getY() / screenHeight), MainActivity.getSettings());
+        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + Math.ceil(getX() / screenWidth) + ":" + Math.ceil(getY() / screenHeight), MainActivity.getSettings());
     }
 }

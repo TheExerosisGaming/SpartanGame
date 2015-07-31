@@ -13,7 +13,7 @@ import me.exerosis.spartangame.game.entity.Player;
  * Created by Exerosis on 7/30/2015.
  */
 public class EntityStorage {
-    
+
     public static void initIcons(final Player player, final int screenHeight, final int screenWidth, View view) {
         new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.up), screenWidth - 355, screenHeight / 2 + 10, view, 5) {
             @Override
@@ -68,14 +68,13 @@ public class EntityStorage {
                 }
             };
         }
-        new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.poison), 25, screenHeight/2 + 250, view, 5) {
+        new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.poison), 25, screenHeight / 2 + 250, view, 5) {
             @Override
             public void touched() {
                 //unholy strike
-                if(player.getHealth() > 0) {
+                if (player.getHealth() > 0) {
                     player.damage();
                 }
-                Log.v("PLAYER", player.getHealth() + "health");
             }
         };
     }

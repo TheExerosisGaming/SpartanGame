@@ -85,7 +85,7 @@ public class MainActivity extends ExActivity {
 
         RedisMessageListener.setupListener();
 
-        new RedisMessageListener("game.damage", "game.end", "game.join", "game.spawn", "game.move") {
+        new RedisMessageListener("game.damage") {
             @Override
             public void onMessage(String message) {
                 damageMessages.add(message);

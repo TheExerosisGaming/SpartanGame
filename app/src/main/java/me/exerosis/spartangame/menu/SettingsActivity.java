@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -53,6 +54,10 @@ public class SettingsActivity extends ExActivity {
     public void onClickSaveButton(View button) {
         isValidIP(serverIPField.getText().toString());
 
+        editor.putString(ARGS_HOST, settings.getString(ARGS_HOST));
+        editor.putInt(ARGS_PORT, settings.getInt(ARGS_PORT));
+        editor.putString(ARGS_PLAYER_NAME, settings.getString(ARGS_PLAYER_NAME));
+        editor.apply();
     }
 
     private void respond() {

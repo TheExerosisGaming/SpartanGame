@@ -117,11 +117,5 @@ public class MainActivity extends ExActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        Log.v(SettingsActivity.ARGS_PORT, settings.getInt(SettingsActivity.ARGS_PORT) + "");
-        editor.putString(SettingsActivity.ARGS_HOST, settings.getString(SettingsActivity.ARGS_HOST));
-        editor.putInt(SettingsActivity.ARGS_PORT, settings.getInt(SettingsActivity.ARGS_PORT));
-        editor.putString(SettingsActivity.ARGS_PLAYER_NAME, settings.getString(SettingsActivity.ARGS_PLAYER_NAME));
-        editor.apply();
     }
 }

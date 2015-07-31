@@ -7,6 +7,8 @@ import java.util.Map;
 
 import gov.pppl.androidmessaginglibrary.AndroidMessagingAPI;
 import gov.pppl.androidmessaginglibrary.event.redis.RedisMessageReceivedEvent;
+import me.exerosis.spartangame.menu.MainActivity;
+import me.exerosis.spartangame.util.Redis;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
 
@@ -88,7 +90,7 @@ public class RedisMessageListener {
         Thread thread = new Thread(new Runnable() {
             public void run() {
                 try {
-                    Jedis jedis = new Jedis(AndroidMessagingAPI.REDIS_IP);
+                    Jedis jedis = Redis.get(MainActivity.getSettings());
                     jedis.psubscribe(getNewListener(), "android.*");
                     jedis.quit();
                 } catch (Exception e) {

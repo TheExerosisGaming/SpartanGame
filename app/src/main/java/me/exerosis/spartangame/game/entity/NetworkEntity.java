@@ -34,8 +34,8 @@ public class NetworkEntity extends Entity {
                     for (Entity entity : Entity.getInstances()) {
                         if (entity instanceof NetworkEntity)
                             if (uuidOurs.equals(((NetworkEntity) entity).uuid)) {
-                                entity.x = Integer.valueOf(components[1]) * screenWidth;
-                                entity.y = Integer.valueOf(components[2]) * screenHeight;
+                                entity.x = (int)(Double.valueOf(components[1]) * screenWidth);
+                                entity.y = (int)(Double.valueOf(components[2]) * screenHeight);
                             }
                     }
                     return;
@@ -90,6 +90,6 @@ public class NetworkEntity extends Entity {
     }
 
     private void updateLocation() {
-        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + getX()/screenWidth + ":" + getY()/screenHeight, MainActivity.getSettings());
+        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + (double)getX()/screenWidth + ":" + (double)getY()/screenHeight, MainActivity.getSettings());
     }
 }

@@ -20,7 +20,7 @@ public class RedisMessager {
                 try {
                     jedis.publish("android." + channel, message);
                 } catch (Exception ignored) {
-                    jedis.quit();
+                  //  jedis.quit();
                     jedis = Redis.get(bundle);
                     jedis.publish("android." + channel, message);
                 }

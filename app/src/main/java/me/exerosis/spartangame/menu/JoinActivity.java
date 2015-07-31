@@ -29,7 +29,6 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
     private Bundle settings = new Bundle();
     private ArrayList<String> listText = new ArrayList<>();
     private ArrayAdapter<String> adapter;
-    private Jedis jedis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,6 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
         adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, android.R.id.text1, listText);
         adapter.setNotifyOnChange(true);
         listView.setAdapter(adapter);
-        jedis = Redis.get(settings);
         startRefresh();
     }
 
@@ -61,7 +59,7 @@ public class JoinActivity extends ExActivity implements AbsListView.OnItemClickL
                 while (true) {
                     listText.clear();
                     try {
-                        listText.addAll(jedis.smembers(HostActivity.ARGS_REDIS_SERVER_LIST));
+                        listText.addAll(Redis.get(settings).smembers(HostActivity.ARGS_REDIS_SERVER_LIST));
                     } catch (Exception e) {
                     }
                     runOnUiThread(new Runnable() {

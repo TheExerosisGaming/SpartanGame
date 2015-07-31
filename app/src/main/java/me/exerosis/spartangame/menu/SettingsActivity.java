@@ -68,11 +68,10 @@ public class SettingsActivity extends ExActivity {
                 }
 
                 settings.remove(ARGS_IS_IP);
-                settings.putString(ARGS_PLAYER_NAME, playerNameField.getText().toString());
 
                 editor.putString(ARGS_HOST, settings.getString(ARGS_HOST));
                 editor.putInt(ARGS_PORT, settings.getInt(ARGS_PORT));
-                editor.putString(ARGS_SERVER_NAME, settings.getString(ARGS_PLAYER_NAME));
+                editor.putString(ARGS_PLAYER_NAME, playerNameField.getText().toString());
                 editor.apply();
 
                 intend(settings, RESULT_OK);

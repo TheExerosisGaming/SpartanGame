@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +33,6 @@ public class MainActivity extends ExActivity {
     private TextView ipView;
 
     private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
 
     public void intend(Class<? extends Activity> clazz, int id) {
         Intent intent = new Intent(this, clazz);
@@ -138,7 +138,6 @@ public class MainActivity extends ExActivity {
         }.start();
 
         sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        editor = sharedPref.edit();
 
         connectionView = getByID(R.id.text_main_connection_default, TextView.class);
         playerNameView = getByID(R.id.text_main_player_default, TextView.class);

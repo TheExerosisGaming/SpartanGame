@@ -108,6 +108,9 @@ public class Player {
 
     public void setHealth(int health) {
         this.health = health;
+        if(health < 1){
+            RedisMessager.sendMessage("game.end", entity.getPairUUID().toString(), MainActivity.getSettings());
+        }
     }
 
     public void damage() {

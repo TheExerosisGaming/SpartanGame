@@ -19,8 +19,8 @@ import me.exerosis.spartangame.util.redis.RedisMessager;
 public class NetworkEntity extends Entity {
     //Here UUID, there UUID
     private static Map<UUID, UUID> uuids = new HashMap<>();
+    private static Map<UUID, NetworkEntity> entities = new HashMap<>();
     private UUID uuid;
-    private NetworkEntity entity;
     private static final int screenWidth = GameView.getScreenWidth();
     private static final int screenHeight = GameView.getScreenHeight();
 
@@ -35,8 +35,8 @@ public class NetworkEntity extends Entity {
                     for (Entity entity : Entity.getInstances()) {
                         if (entity instanceof NetworkEntity)
                             if (uuidOurs.equals(((NetworkEntity) entity).uuid)) {
-                                entity.x = (int)(Double.valueOf(components[1]) * screenWidth);
-                                entity.y = (int)(Double.valueOf(components[2]) * screenHeight);
+                                entity.x = (int) (Double.valueOf(components[1]) * screenWidth);
+                                entity.y = (int) (Double.valueOf(components[2]) * screenHeight);
                             }
                     }
                     return;
@@ -63,13 +63,14 @@ public class NetworkEntity extends Entity {
 
         uuids.put(entity.uuid, uuidClient);
 
-        RedisMessager.sendMessage("game.spawn", uuidClient.toString() + ":" + entity.uuid.toString() + ":"  + texture + ":" + x + ":" + y + ":" + layer, MainActivity.getSettings());
+        RedisMessager.sendMessage("game.spawn", uuidClient.toString() + ":" + entity.uuid.toString() + ":" + texture + ":" + x + ":" + y + ":" + layer, MainActivity.getSettings());
         return entity;
     }
 
     private NetworkEntity(Bitmap bitmap, int x, int y, int layer, UUID uuid) {
         super(bitmap, x, y, layer);
         this.uuid = uuid;
+        entities.put(uuid, this);
     }
 
     public void setX(int x) {
@@ -90,7 +91,11 @@ public class NetworkEntity extends Entity {
         return uuids.get(uuid);
     }
 
+    public NetworkEntity getPairEntity() {
+        return entities.get(uuid);
+    }
+
     private void updateLocation() {
-        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + (double)getX()/screenWidth + ":" + (double)getY()/screenHeight, MainActivity.getSettings());
+        RedisMessager.sendMessage("game.move", getPairUUID() + ":" + (double) getX() / screenWidth + ":" + (double) getY() / screenHeight, MainActivity.getSettings());
     }
 }

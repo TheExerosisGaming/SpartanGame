@@ -99,6 +99,15 @@ public abstract class Entity implements Comparable<Entity> {
         return x > getRectangle().left && x < getRectangle().right && y > getRectangle().bottom && y < getRectangle().top;
     }
 
+    public boolean intersects(Rect rect) {
+        if (rectangle.contains(rect.left, rect.top) || rectangle.contains(rect.left, rect.bottom)
+                || rectangle.contains(rect.right, rect.top) || rectangle.contains(rect.right, rect.bottom)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int getX() {
         return x;
     }

@@ -62,6 +62,8 @@ public abstract class Entity implements Comparable<Entity> {
         }.start();
     }
 
+    private boolean visible;
+
     public static List<Entity> getInstances() {
         return instances;
     }
@@ -155,7 +157,18 @@ public abstract class Entity implements Comparable<Entity> {
         this.bitmap = bitmap;
     }
 
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
     public void draw(Canvas canvas) {
+        if (!isVisible())
+            return;
+
         canvas.drawBitmap(bitmap, x, y, null);
         if (x + getBitmap().getHeight() + xVelocity >= GameView.getScreenWidth() || x + xVelocity <= 0)
             setXVelocity(0);

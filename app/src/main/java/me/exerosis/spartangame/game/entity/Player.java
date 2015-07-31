@@ -1,10 +1,13 @@
 package me.exerosis.spartangame.game.entity;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 
 import java.util.UUID;
 
+import gov.pppl.blah.R;
+import me.exerosis.spartangame.game.GameView;
 import me.exerosis.spartangame.game.entity.NetworkEntity;
 import me.exerosis.spartangame.menu.MainActivity;
 import me.exerosis.spartangame.util.redis.RedisMessageListener;
@@ -24,12 +27,26 @@ public class Player {
         entity = NetworkEntity.newInstance(texture, x, y, layer);
         entity.setGravity(false);
 
-        new RedisMessageListener("game.damaged") {
+        new RedisMessageListener("game.damage") {
             @Override
             public void onMessage(String message) {
                 String[] parts = message.split(":");
                 if (UUID.fromString(parts[0]).equals(entity.getUUID().toString()))
                     setHealth(getHealth() - Integer.valueOf(parts[1]));
+            }
+        };
+        new RedisMessageListener("game.end") {
+            @Override
+            public void onMessage(String message) {
+                if (!UUID.fromString(message).equals(entity.getUUID()))
+                    return;
+
+                int screenWidth = GameView.getScreenHeight();
+                int screenHeight = GameView.getScreenHeight();
+                PicButton gameEnd = new PicButton(BitmapFactory.decodeResource(GameView.getGameResources(), R.drawable.victory), screenWidth / 2 - 350, screenHeight / 2 - 300, GameView.getView(), 5);
+                gameEnd.setX(screenHeight / 2 - gameEnd.getBitmap().getWidth() / 2);
+                gameEnd.setY(screenWidth/ 2 - gameEnd.getBitmap().getHeight() / 2);
+                gameEnd.setVisible(false);
             }
         };
     }
@@ -112,9 +129,8 @@ public class Player {
 
     public void setHealth(int health) {
         this.health = health;
-        if(health < 1){
+        if (health < 1)
             RedisMessager.sendMessage("game.end", entity.getPairUUID().toString(), MainActivity.getSettings());
-        }
     }
 
     public void damage() {

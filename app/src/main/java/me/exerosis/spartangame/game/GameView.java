@@ -11,6 +11,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
 
 import java.util.Collections;
@@ -30,10 +31,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private final Player player; // Players
 
-    private final Entity gameEnd;
     private final HealthBar healthBar;
 
     private Dagger dagger; // Weapons
+
+    private static View view; // Weapons
 
     private static int screenWidth; // Screen dimensions
     private static int screenHeight;
@@ -44,7 +46,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public GameView(Context context, Bundle bundle) {
         super(context);
-
+        view = this;
         resources = getResources();
 
         settings.putAll(bundle);
@@ -58,10 +60,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         screenHeight = size.y;
 
         player = new Player(R.drawable.bluerightidle, screenWidth / 2, screenHeight / 2, 4);
-
-        gameEnd = new PicButton(BitmapFactory.decodeResource(getResources(), R.drawable.victory), screenWidth / 2 - 350, screenHeight / 2 - 300, this, 5);
-        gameEnd.setX(screenWidth / 2 - gameEnd.getBitmap().getWidth()/2);
-        gameEnd.setY(screenHeight / 2 - gameEnd.getBitmap().getHeight()/2);
 
         healthBar = new HealthBar(player.getHealth());
 
@@ -114,12 +112,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     protected void onDraw(Canvas canvas) {
         if (canvas != null) {
-
             canvas.drawColor(Color.CYAN);
 
             Collections.sort(Entity.getSyncInstances());
             for (Entity entity : Entity.getSyncInstances())
-                if (entity != null)
+                if (entity != null && entity.isVisible())
                     entity.draw(canvas);
 
             if (dagger != null)
@@ -128,10 +125,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
             healthBar.setSize(player.getHealth());
             healthBar.draw(canvas);
-
-            if (player.getHealth() == 0) {
-                gameEnd.draw(canvas);
-            }
         }
     }
 
@@ -188,5 +181,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public static int getScreenHeight() {
         return screenHeight;
+    }
+
+    public static View getView() {
+        return view;
     }
 }

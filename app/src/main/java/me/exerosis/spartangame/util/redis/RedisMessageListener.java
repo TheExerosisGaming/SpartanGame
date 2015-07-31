@@ -1,5 +1,7 @@
 package me.exerosis.spartangame.util.redis;
 
+import android.os.Bundle;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +9,10 @@ import java.util.Map;
 
 import gov.pppl.androidmessaginglibrary.AndroidMessagingAPI;
 import gov.pppl.androidmessaginglibrary.event.redis.RedisMessageReceivedEvent;
+import me.exerosis.spartangame.game.GameActivity;
+import me.exerosis.spartangame.game.GameView;
 import me.exerosis.spartangame.menu.MainActivity;
+import me.exerosis.spartangame.menu.SettingsActivity;
 import me.exerosis.spartangame.util.Redis;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
@@ -90,7 +95,7 @@ public class RedisMessageListener {
         Thread thread = new Thread(new Runnable() {
             public void run() {
                 try {
-                    Jedis jedis = Redis.get(MainActivity.getSettings());
+                    Jedis jedis = new Jedis(SettingsActivity.DEFAULT_HOST, Integer.valueOf(SettingsActivity.DEFAULT_PORT));
                     jedis.psubscribe(getNewListener(), "android.*");
                     jedis.quit();
                 } catch (Exception e) {

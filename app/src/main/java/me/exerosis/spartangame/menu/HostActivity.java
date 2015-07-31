@@ -16,12 +16,14 @@ import redis.clients.jedis.Jedis;
 public class HostActivity extends ExActivity {
     public static final String ARGS_REDIS_SERVER_LIST = "gamesList";
     private EditText serverNameField;
+    public static HostActivity activity;
     private Bundle settings = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
+        activity = this;
         serverNameField = getByID(R.id.field_server_name, EditText.class);
 
         settings.putAll(getIntent().getExtras());
@@ -31,18 +33,6 @@ public class HostActivity extends ExActivity {
 
         addToDB(name);
         AndroidMessagingAPI.getEventManager().registerListener(this);
-
-
-        new RedisMessageListener("game.join") {
-            @Override
-            public void onMessage(String message) {
-                if (!message.equals(settings.getString(SettingsActivity.ARGS_SERVER_NAME)))
-                    return;
-
-                removeFromDB(settings.getString(SettingsActivity.ARGS_SERVER_NAME));
-                intend(RESULT_OK);
-            }
-        };
     }
 
     private void addToDB(final String newName) {
@@ -50,7 +40,11 @@ public class HostActivity extends ExActivity {
             @Override
             public void run() {
                 Jedis jedis = Redis.get(settings);
-                jedis.sadd(ARGS_REDIS_SERVER_LIST, newName);
+                try {
+                    jedis.sadd(ARGS_REDIS_SERVER_LIST, newName);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }.start();
     }
@@ -67,10 +61,22 @@ public class HostActivity extends ExActivity {
             @Override
             public void run() {
                 Jedis jedis = Redis.get(settings);
-                if (jedis.sismember(ARGS_REDIS_SERVER_LIST, oldName))
-                    jedis.srem(ARGS_REDIS_SERVER_LIST, oldName);
+                try {
+                    if (jedis.sismember(ARGS_REDIS_SERVER_LIST, oldName))
+                        jedis.srem(ARGS_REDIS_SERVER_LIST, oldName);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }.start();
+    }
+
+    public void join(String message) {
+        if (!message.equals(settings.getString(SettingsActivity.ARGS_SERVER_NAME)))
+            return;
+
+        removeFromDB(settings.getString(SettingsActivity.ARGS_SERVER_NAME));
+        intend(RESULT_OK);
     }
 
     @Override

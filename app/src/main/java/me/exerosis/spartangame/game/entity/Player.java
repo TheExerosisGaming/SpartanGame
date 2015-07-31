@@ -25,7 +25,7 @@ public class Player {
     private int team = 0;
     private int direction = 1;
     private boolean blocking = false;
-    private static Player player;
+    public static Player player;
 
     public Player(int texture, int x, int y, int layer) {
         entity = NetworkEntity.newInstance(texture, x, y, layer);
@@ -182,13 +182,5 @@ public class Player {
             return;
 
         showEndGameDrawable(R.drawable.victory);
-    }
-
-    public static void onDamage(String message) {
-        player.damage(message);
-    }
-
-    public static void onEnd(String message) {
-        player.end(message);
     }
 }

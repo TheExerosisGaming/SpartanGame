@@ -44,10 +44,6 @@ public class GameActivity extends Activity {
         });
     }
 
-    public static void onClick(String message) {
-        activity.clicked(message);
-    }
-
     public static GameActivity getActivity() {
         return activity;
     }

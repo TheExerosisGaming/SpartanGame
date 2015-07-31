@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import gov.pppl.blah.R;
 import me.exerosis.spartangame.game.GameActivity;
+import me.exerosis.spartangame.game.entity.NetworkEntity;
 import me.exerosis.spartangame.game.entity.Player;
 import me.exerosis.spartangame.util.ExActivity;
 import me.exerosis.spartangame.util.Redis;
@@ -58,6 +61,11 @@ public class MainActivity extends ExActivity {
         }
     }
 
+    private ArrayList<String> nameMessages = new ArrayList<>();
+    private ArrayList<String> damageMessages = new ArrayList<>();
+    private ArrayList<String> endMessages = new ArrayList<>();
+    private ArrayList<String> joinMessages = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,21 +74,68 @@ public class MainActivity extends ExActivity {
         new RedisMessageListener("game.name") {
             @Override
             public void onMessage(String message) {
-                GameActivity.onClick(message);
+                nameMessages.add(message);
             }
         };
         new RedisMessageListener("game.damage") {
             @Override
             public void onMessage(String message) {
-                Player.onDamage(message);
+                damageMessages.add(message);
             }
         };
         new RedisMessageListener("game.end") {
             @Override
             public void onMessage(String message) {
-                Player.onEnd(message);
+                endMessages.add(message);
             }
         };
+        new RedisMessageListener("game.join") {
+            @Override
+            public void onMessage(String message) {
+                joinMessages.add(message);
+            }
+        };
+        new RedisMessageListener("game.spawn", "game.move") {
+            @Override
+            public void onMessage(String channel, String message) {
+                NetworkEntity.onMessage(channel, message);
+            }
+        };
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    int x = 0;
+                    while (x < nameMessages.size()) {
+                        if (GameActivity.activity != null)
+                            GameActivity.activity.clicked(nameMessages.remove(x));
+                        else
+                            x++;
+                    }
+                    int y = 0;
+                    while (y < damageMessages.size()) {
+                        if (Player.player != null)
+                            Player.player.damage(damageMessages.remove(y));
+                        else
+                            y++;
+                    }
+                    int z = 0;
+                    while (z < endMessages.size()) {
+                        if (Player.player != null)
+                            Player.player.end(endMessages.remove(z));
+                        else
+                            z++;
+                    }
+                    int a = 0;
+                    while (a < joinMessages.size()) {
+                        if (HostActivity.activity != null)
+                            HostActivity.activity.join(joinMessages.remove(a));
+                        else
+                            a++;
+                    }
+                }
+            }
+        }.start();
 
         sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         editor = sharedPref.edit();

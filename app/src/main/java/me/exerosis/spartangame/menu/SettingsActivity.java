@@ -23,7 +23,7 @@ public class SettingsActivity extends ExActivity {
     public static final String ARGS_SERVER_NAME = "server_name";
 
     public static final String DEFAULT_HOST = "grappl.io";
-    public static final int DEFAULT_PORT = 40186;
+    public static final int DEFAULT_PORT = 40282;
 
     private EditText serverIPField;
     private EditText playerNameField;

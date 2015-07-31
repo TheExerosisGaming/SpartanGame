@@ -24,36 +24,31 @@ public class NetworkEntity extends Entity {
     private static final int screenWidth = GameView.getScreenWidth();
     private static final int screenHeight = GameView.getScreenHeight();
 
-    static {
-        new RedisMessageListener("game.spawn", "game.move") {
-            @Override
-            public void onMessage(String channel, String message) {
-                String[] components = message.split(":");
-                UUID uuidOurs = UUID.fromString(components[0]);
+    public static void onMessage(String channel, String message){
+        String[] components = message.split(":");
+        UUID uuidOurs = UUID.fromString(components[0]);
 
-                if (channel.equals("android.game.move")) {
-                    for (Entity entity : Entity.getInstances()) {
-                        if (entity instanceof NetworkEntity)
-                            if (uuidOurs.equals(((NetworkEntity) entity).uuid)) {
-                                entity.x = (int) (Double.valueOf(components[1]) * screenWidth);
-                                entity.y = (int) (Double.valueOf(components[2]) * screenHeight);
-                            }
+        if (channel.equals("android.game.move")) {
+            for (Entity entity : Entity.getInstances()) {
+                if (entity instanceof NetworkEntity)
+                    if (uuidOurs.equals(((NetworkEntity) entity).uuid)) {
+                        entity.x = (int) (Double.valueOf(components[1]) * screenWidth);
+                        entity.y = (int) (Double.valueOf(components[2]) * screenHeight);
                     }
-                    return;
-                }
-
-
-                UUID uuidHost = UUID.fromString(components[1]);
-
-                if (uuids.containsKey(uuidHost))
-                    return;
-
-                Bitmap bitmap = BitmapFactory.decodeResource(GameView.getGameResources(), Integer.valueOf(components[2]));
-                new NetworkEntity(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);
-
-                uuids.put(uuidOurs, uuidHost);
             }
-        };
+            return;
+        }
+
+
+        UUID uuidHost = UUID.fromString(components[1]);
+
+        if (uuids.containsKey(uuidHost))
+            return;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(GameView.getGameResources(), Integer.valueOf(components[2]));
+        new NetworkEntity(bitmap, Integer.valueOf(components[3]), Integer.valueOf(components[4]), Integer.valueOf(components[5]), uuidOurs);
+
+        uuids.put(uuidOurs, uuidHost);
     }
 
     public static NetworkEntity newInstance(int texture, int x, int y, int layer) {
@@ -71,6 +66,7 @@ public class NetworkEntity extends Entity {
         super(bitmap, x, y, layer);
         this.uuid = uuid;
         entities.put(uuid, this);
+        setGravity(false);
     }
 
     public void setX(int x) {

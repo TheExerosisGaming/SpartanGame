@@ -41,6 +41,8 @@ public abstract class Entity implements Comparable<Entity> {
                 while (true) {
                     synchronized (gravityInstances) {
                         for (Entity entity : gravityInstances) {
+                            if(!entity.hasGravity())
+                                return;
                             if (jumping) {
                                 if (entity.y > GameView.getScreenHeight() - entity.bitmap.getHeight() - JUMP_LIMIT && entity.yVelocity > -TERMINAL_VELOCITY) {
                                     entity.yVelocity -= JUMP_FORCE;
